@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="pt-br" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+    <title>Bar do Gege | O Melhor de SP</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <!-- Fallback para Indie Flower e Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Indie+Flower&family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            white: '#ffffff',
+                            light: '#f8f9fa',
+                            gray: '#e9ecef',
+                            red: '#D90429', // Vermelho Intenso
+                            redHover: '#EF233C',
+                            dark: '#1a1a1a'
+                        }
+                    },
+                    fontFamily: {
+                        // Lavos Handy com Indie Flower como fallback visível
+                        lavos: ['"Lavos Handy"', '"Indie Flower"', 'cursive'],
+                        body: ['"Inter"', 'sans-serif'],
+                    },
+                    backgroundImage: {
+                        'hero-gradient': 'linear-gradient(to bottom, rgba(255,255,255,0.3) 0%, rgba(255,255,255,0.9) 80%, rgba(255,255,255,1) 100%)',
+                    },
+                    screens: {
+                        'xs': '375px', // Breakpoint extra para celulares pequenos
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Configuração da Fonte Local Lavos Handy */
+        @font-face {
+            font-family: 'Lavos Handy';
+            src: url('lavos_handy.ttf') format('truetype'),
+                 url('lavos_handy.woff') format('woff');
+            font-display: swap;
+        }
+
+        body {
+            background-color: #ffffff;
+            color: #000000;
+            font-family: 'Inter', sans-serif;
+            overflow-x: hidden; /* Previne rolagem horizontal indesejada */
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* Classes Utilitárias Customizadas */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease-out;
+        }
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Botão WhatsApp */
+        .whatsapp-float {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 100;
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: 0 10px 25px -5px rgba(217, 4, 41, 0.4);
+        }
+        .whatsapp-float:hover {
+            transform: scale(1.1);
+        }
+
+        /* Ajuste para imagens */
+        .img-cover {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* Sombra suave */
+        .shadow-soft {
+            box-shadow: 0 10px 40px -10px rgba(0,0,0,0.1);
+        }
+    </style>
+</head>
+<body class="selection:bg-brand-red selection:text-white">
+
+    <!-- Navbar -->
+    <nav id="navbar" class="fixed w-full z-50 transition-all duration-300 py-3 md:py-4 px-4 lg:px-12 bg-white/95 backdrop-blur-md border-b border-gray-100 shadow-sm">
+        <div class="container mx-auto flex justify-between items-center">
+            <!-- LOGO -->
+            <a href="#" class="block h-12 md:h-16 lg:h-[92px] transition-transform hover:scale-105 shrink-0">
+                <img src="logo.png" alt="Bar do Gege Logo" class="h-full w-auto object-contain" onerror="this.onerror=null; this.src='https://placehold.co/200x92/FFFFFF/000000?text=Bar+do+Gege';">
+            </a>
+
+            <!-- Menu Desktop -->
+            <div class="hidden md:flex items-center gap-6 lg:gap-10">
+                <a href="cardapio.pdf" target="_blank" class="font-lavos text-lg lg:text-xl font-bold text-black hover:text-brand-red transition-colors tracking-wide">Menu</a>
+                <a href="#eventos" class="font-lavos text-lg lg:text-xl font-bold text-black hover:text-brand-red transition-colors tracking-wide">Reservas</a>
+                <a href="#localizacao" class="font-lavos text-lg lg:text-xl font-bold text-black hover:text-brand-red transition-colors tracking-wide">Local</a>
+                <a href="#visite" class="px-6 py-2 bg-brand-red text-white font-lavos text-lg lg:text-xl font-bold tracking-wide hover:bg-black transition-all rounded-sm shadow-lg shadow-brand-red/30 transform hover:-translate-y-0.5">
+                    Visite-nos
+                </a>
+            </div>
+
+            <!-- Menu Mobile Button -->
+            <button id="mobile-btn" class="md:hidden text-2xl text-black p-2 focus:outline-none">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Mobile Menu Overlay -->
+    <div id="mobile-menu" class="fixed inset-0 bg-white/98 z-[60] transform translate-x-full transition-transform duration-500 flex flex-col justify-center items-center gap-6 md:hidden overflow-y-auto">
+        <button id="close-mobile" class="absolute top-6 right-6 text-brand-red text-4xl p-2">&times;</button>
+        <a href="cardapio.pdf" target="_blank" class="mobile-link font-lavos text-3xl xs:text-4xl font-bold text-black hover:text-brand-red transition-colors">MENU</a>
+        <a href="#eventos" class="mobile-link font-lavos text-3xl xs:text-4xl font-bold text-black hover:text-brand-red transition-colors">RESERVAS</a>
+        <a href="#localizacao" class="mobile-link font-lavos text-3xl xs:text-4xl font-bold text-black hover:text-brand-red transition-colors">LOCAL</a>
+        <a href="#visite" class="mobile-link font-lavos text-3xl xs:text-4xl font-bold text-brand-red">VISITE</a>
+    </div>
+
+    <!-- Hero Section -->
+    <section class="relative min-h-[100svh] flex items-center justify-center overflow-hidden pt-20 pb-10">
+        <!-- Imagem de Fundo -->
+        <div class="absolute inset-0 z-0">
+            <div class="absolute inset-0 bg-hero-gradient z-10"></div>
+            <img src="banner.jpeg" class="w-full h-full object-cover object-center opacity-90" alt="Banner Bar do Gege" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1544025162-d76690b6d015?q=80&w=1920&auto=format&fit=crop';">
+        </div>
+
+        <div class="container mx-auto px-4 md:px-6 relative z-20 text-center flex flex-col items-center justify-center h-full">
+            <div class="mb-6 animate-[fadeInDown_1s_ease-out]">
+                <span class="px-4 py-1 md:px-6 md:py-2 border-2 border-brand-red rounded-full text-brand-red font-lavos text-lg md:text-2xl font-bold bg-white/80 backdrop-blur-sm shadow-sm">
+                    São Paulo • Jardins
+                </span>
+            </div>
+            
+            <!-- Logo principal responsiva -->
+            <div class="w-full max-w-[280px] xs:max-w-[320px] md:max-w-xl lg:max-w-4xl mb-6 animate-[fadeInUp_1s_ease-out]">
+                <img src="bargg.png" alt="Bar do Gege" class="w-full h-auto drop-shadow-sm" onerror="this.onerror=null; this.src='https://placehold.co/600x200/transparent/000000?text=BAR+DO+GEGE';">
+            </div>
+            
+            <p class="text-gray-800 text-base md:text-xl max-w-xs md:max-w-2xl mx-auto mb-10 font-medium leading-relaxed animate-[fadeInUp_1.2s_ease-out]">
+                Cerveja gelada, petiscos de verdade e aquele ambiente que você respeita. 
+                A tradição do melhor boteco de SP.
+            </p>
+            
+            <div class="animate-[fadeInUp_1.4s_ease-out] w-full px-4">
+                <a href="#cardapio" class="group relative inline-flex items-center justify-center w-full md:w-auto px-8 py-3 md:px-10 md:py-4 overflow-hidden font-lavos text-xl md:text-2xl font-bold text-black transition-all duration-300 bg-transparent border-2 border-black hover:bg-black hover:text-white rounded-sm">
+                    <span class="mr-2 tracking-wide">Explorar Menu</span>
+                    <i class="fas fa-arrow-down transform group-hover:translate-y-1 transition-transform text-sm"></i>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- 2. Seção Cardápio -->
+    <section id="cardapio" class="py-16 md:py-24 bg-white">
+        <div class="container mx-auto px-4 md:px-6">
+            <div class="text-center mb-10 md:mb-16 reveal">
+                <span class="text-brand-red font-lavos text-2xl md:text-3xl font-bold block mb-2">Nossa Cozinha</span>
+                <h2 class="font-lavos text-5xl md:text-7xl text-black font-bold">CARDÁPIO</h2>
+            </div>
+
+            <!-- Grid Responsivo -->
+            <div class="grid grid-cols-1 md:grid-cols-4 md:grid-rows-2 gap-4 md:gap-6 h-auto md:h-[800px]">
+                
+                <!-- Item 1 -->
+                <div class="md:col-span-2 md:row-span-2 relative group overflow-hidden rounded-xl reveal shadow-soft h-[350px] md:h-auto">
+                    <img src="frutos.jpg" class="img-cover transition-transform duration-700 group-hover:scale-110" alt="Nossos Pratos" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1544025162-d76690b6d015?q=80&w=800&auto=format&fit=crop';">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-90"></div>
+                    <div class="absolute bottom-0 left-0 p-6 md:p-8">
+                        <h3 class="font-lavos text-3xl md:text-5xl mb-2 text-white font-bold">PRATOS</h3>
+                        <p class="text-gray-200 text-sm md:text-base max-w-sm font-medium">O melhor da gastronomia de boteco. Pratos fartos e sabor inigualável.</p>
+                    </div>
+                </div>
+
+                <!-- Item 2 -->
+                <div class="md:col-span-2 relative group overflow-hidden rounded-xl reveal delay-100 shadow-soft h-[200px] md:h-auto">
+                    <img src="dividir.png" class="img-cover transition-transform duration-700 group-hover:scale-110" alt="Pratos Executivos" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1546069901-ba9599a7e63c?q=80&w=800&auto=format&fit=crop';">
+                    <div class="absolute inset-0 bg-black/20 group-hover:bg-transparent transition-colors"></div>
+                    <div class="absolute bottom-4 left-4 bg-white/95 backdrop-blur px-4 py-2 rounded-lg">
+                        <h3 class="font-lavos text-xl md:text-3xl text-brand-red font-bold">PARA DIVIDIR</h3>
+                    </div>
+                </div>
+
+                <!-- Item 3 -->
+                <div class="relative group overflow-hidden rounded-xl reveal delay-200 shadow-soft h-[200px] md:h-auto">
+                    <img src="porcao.png" class="img-cover transition-transform duration-700 group-hover:scale-110" alt="Porções" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1621852004158-b39765464355?q=80&w=800&auto=format&fit=crop';">
+                    <div class="absolute inset-0 bg-black/20 group-hover:bg-transparent transition-colors"></div>
+                    <div class="absolute bottom-4 left-4 bg-white/95 backdrop-blur px-4 py-2 rounded-lg">
+                        <h3 class="font-lavos text-xl md:text-3xl text-brand-red font-bold">PORÇÕES</h3>
+                    </div>
+                </div>
+
+                <!-- Item 4 -->
+                <div class="relative group overflow-hidden rounded-xl reveal delay-300 shadow-soft h-[200px] md:h-auto">
+                    <img src="bebidas.jpg" class="img-cover transition-transform duration-700 group-hover:scale-110" alt="Bebidas e Drinks" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?q=80&w=800&auto=format&fit=crop';">
+                    <div class="absolute inset-0 bg-black/20 group-hover:bg-transparent transition-colors"></div>
+                    <div class="absolute bottom-4 left-4 bg-white/95 backdrop-blur px-4 py-2 rounded-lg">
+                        <h3 class="font-lavos text-xl md:text-3xl text-brand-red font-bold">BEBIDAS</h3>
+                    </div>
+                </div>
+
+            </div>
+            
+            <div class="text-center mt-12 md:mt-16 reveal w-full px-4">
+                <a href="cardapio.pdf" download target="_blank" class="inline-flex w-full md:w-auto justify-center items-center gap-3 bg-black text-white px-8 py-4 md:px-10 md:py-5 rounded-lg font-lavos text-xl md:text-3xl font-bold hover:bg-brand-red hover:shadow-[0_10px_30px_-5px_rgba(217,4,41,0.5)] transition-all transform hover:-translate-y-1 shadow-xl">
+                    <i class="fas fa-file-pdf"></i>
+                    BAIXAR MENU
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- 3. Seção Eventos -->
+    <section id="eventos" class="py-16 md:py-24 bg-brand-light relative overflow-hidden border-t border-gray-200">
+        <div class="absolute left-0 bottom-0 w-1/3 h-full bg-gray-200 -skew-x-12 -translate-x-20 hidden lg:block opacity-50"></div>
+
+        <div class="container mx-auto px-4 md:px-6 relative z-10">
+            <div class="flex flex-col lg:flex-row gap-10 md:gap-16 items-center">
+                
+                <div class="lg:w-1/2 reveal text-center lg:text-left">
+                    <span class="text-brand-red font-lavos text-2xl md:text-3xl font-bold">Reservas & Private</span>
+                    <h2 class="font-lavos text-5xl md:text-7xl mt-2 mb-6 text-black font-bold leading-tight">CELEBRE <br>COM A GENTE.</h2>
+                    <p class="text-gray-700 text-base md:text-lg leading-relaxed mb-8 font-light max-w-lg mx-auto lg:mx-0">
+                        Realize seu evento corporativo ou celebração privada no Bar do Gege. 
+                        Faça sua reserva antecipada e garanta a melhor mesa.
+                    </p>
+                </div>
+
+                <div class="lg:w-1/2 w-full reveal delay-100">
+                    <div class="bg-white p-6 md:p-12 border border-gray-100 rounded-2xl shadow-soft">
+                        <h3 class="font-lavos text-3xl md:text-4xl mb-6 md:mb-8 text-black font-bold text-center md:text-left">SOLICITAR RESERVA</h3>
+                        
+                        <form class="space-y-4 md:space-y-6">
+                            <div class="group">
+                                <label class="block text-[10px] font-bold uppercase tracking-widest text-brand-red mb-2">Nome Completo</label>
+                                <input type="text" class="w-full bg-gray-50 border-b-2 border-gray-200 p-3 text-black focus:outline-none focus:border-brand-red transition-colors placeholder-gray-400 text-sm md:text-base" placeholder="Digite seu nome">
+                            </div>
+                            
+                            <div class="grid grid-cols-2 gap-4 md:gap-6">
+                                <div class="group">
+                                    <label class="block text-[10px] font-bold uppercase tracking-widest text-brand-red mb-2">Data</label>
+                                    <input type="text" class="w-full bg-gray-50 border-b-2 border-gray-200 p-3 text-black focus:outline-none focus:border-brand-red transition-colors placeholder-gray-400 text-sm md:text-base" placeholder="DD/MM">
+                                </div>
+                                <div class="group">
+                                    <label class="block text-[10px] font-bold uppercase tracking-widest text-brand-red mb-2">Pessoas</label>
+                                    <input type="number" class="w-full bg-gray-50 border-b-2 border-gray-200 p-3 text-black focus:outline-none focus:border-brand-red transition-colors placeholder-gray-400 text-sm md:text-base" placeholder="Qtd.">
+                                </div>
+                            </div>
+                            
+                            <div class="group">
+                                <label class="block text-[10px] font-bold uppercase tracking-widest text-brand-red mb-2">Telefone / WhatsApp</label>
+                                <input type="tel" class="w-full bg-gray-50 border-b-2 border-gray-200 p-3 text-black focus:outline-none focus:border-brand-red transition-colors placeholder-gray-400 text-sm md:text-base" placeholder="(11) 99999-9999">
+                            </div>
+
+                            <button class="w-full py-3 md:py-4 bg-black text-white font-bold uppercase tracking-widest hover:bg-brand-red transition-all mt-4 rounded-sm shadow-lg font-lavos text-xl md:text-2xl">
+                                Confirmar Interesse
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CONTAINER HÍBRIDO: LOCALIZAÇÃO E VISITE-NOS (LADO A LADO) -->
+    <!-- Grid System: 1 Coluna no mobile, 2 Colunas no desktop (lg) -->
+    <section class="w-full grid grid-cols-1 lg:grid-cols-2">
+
+        <!-- 4. Lado Esquerdo: Localização (Mapa) -->
+        <!-- Altura: 400px no mobile, Altura automática (Full) no desktop -->
+        <div id="localizacao" class="w-full h-[400px] lg:h-auto lg:min-h-[600px] border-t-8 border-black lg:border-t-0 lg:border-r-8 relative group reveal">
+            <iframe 
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3657.19758702967!2d-46.66236622497676!3d-23.56134857880088!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x94ce59ceb1eb771f%3A0xe904f69692244238!2sJardins%2C%20S%C3%A3o%20Paulo%20-%20SP!5e0!3m2!1spt-BR!2sbr!4v1700000000000!5m2!1spt-BR!2sbr" 
+                class="absolute inset-0 w-full h-full grayscale group-hover:grayscale-0 transition-all duration-700 z-0" 
+                allowfullscreen="" loading="lazy">
+            </iframe>
+            
+            <!-- Etiqueta Flutuante sobre o mapa -->
+            <div class="absolute top-4 left-4 right-4 md:right-auto md:w-max bg-white/95 backdrop-blur px-6 py-4 rounded shadow-2xl pointer-events-none border-l-4 border-brand-red z-10">
+                <p class="text-[10px] uppercase tracking-widest text-gray-500 mb-1">Como chegar</p>
+                <span class="text-black font-lavos text-xl font-bold leading-none">Rua Prof. Lourival Gomes</span>
+            </div>
+        </div>
+
+        <!-- 5. Lado Direito: Visite-nos (Informações) -->
+        <div id="visite" class="bg-brand-dark text-white py-16 px-6 md:px-12 lg:px-16 flex flex-col justify-center reveal delay-100">
+            <div class="max-w-xl mx-auto lg:mx-0 w-full">
+                <!-- Título -->
+                <div class="mb-10 lg:mb-12">
+                    <h2 class="font-lavos text-5xl md:text-7xl lg:text-8xl text-brand-red font-bold leading-none">VISITE<br><span class="text-white">NOS</span></h2>
+                </div>
+
+                <!-- Grid interno de informações -->
+                <div class="grid gap-10">
+                    <!-- Endereço -->
+                    <div class="flex flex-col items-start">
+                        <div class="flex items-center gap-3 mb-3">
+                            <i class="fas fa-map-marker-alt text-brand-red text-xl"></i>
+                            <h4 class="font-bold uppercase tracking-widest text-sm text-gray-400">Endereço</h4>
+                        </div>
+                        <p class="text-lg md:text-xl font-medium leading-relaxed text-gray-200">
+                            Rua Professor Lourival Gomes Machado, 260<br>
+                            Jardins • São Paulo - SP
+                        </p>
+                    </div>
+
+                    <!-- Horários -->
+                    <div class="flex flex-col items-start">
+                        <div class="flex items-center gap-3 mb-3">
+                            <i class="fas fa-clock text-brand-red text-xl"></i>
+                            <h4 class="font-bold uppercase tracking-widest text-sm text-gray-400">Horários de Funcionamento</h4>
+                        </div>
+                        <ul class="space-y-2 text-gray-300 text-lg">
+                            <li class="flex justify-between w-full max-w-xs border-b border-gray-700 pb-1">
+                                <span class="text-white font-bold">Ter - Qui:</span> 
+                                <span>18h às 23h</span>
+                            </li>
+                            <li class="flex justify-between w-full max-w-xs border-b border-gray-700 pb-1">
+                                <span class="text-white font-bold">Sex - Sáb:</span> 
+                                <span>12h às 00h</span>
+                            </li>
+                            <li class="flex justify-between w-full max-w-xs">
+                                <span class="text-white font-bold">Domingo:</span> 
+                                <span>12h às 17h</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-white py-12 border-t border-gray-200">
+        <div class="container mx-auto px-6">
+            <div class="flex flex-col md:flex-row justify-between items-center gap-8 mb-8">
+                <div class="w-24 md:w-32 hover:opacity-80 transition-opacity">
+                     <img src="logo.png" alt="Bar do Gege" class="filter invert-0" onerror="this.onerror=null; this.src='https://placehold.co/200x80/FFFFFF/000000?text=Bar+do+Gege';">
+                </div>
+
+                <div class="flex gap-4 md:gap-6">
+                    <a href="https://www.instagram.com/bar_dogege/" target="_blank" class="w-10 h-10 md:w-12 md:h-12 rounded-full border border-gray-200 flex items-center justify-center text-gray-500 hover:text-white hover:bg-brand-red hover:border-brand-red transition-all">
+                        <i class="fab fa-instagram text-lg md:text-xl"></i>
+                    </a>
+                    <a href="https://www.facebook.com/profile.php?id=61584456411564#" target="_blank" class="w-10 h-10 md:w-12 md:h-12 rounded-full border border-gray-200 flex items-center justify-center text-gray-500 hover:text-white hover:bg-brand-red hover:border-brand-red transition-all">
+                        <i class="fab fa-facebook-f text-lg md:text-xl"></i>
+                    </a>
+                    <a href="https://wa.me/5511941024387" target="_blank" class="w-10 h-10 md:w-12 md:h-12 rounded-full border border-gray-200 flex items-center justify-center text-gray-500 hover:text-white hover:bg-brand-red hover:border-brand-red transition-all">
+                        <i class="fab fa-whatsapp text-lg md:text-xl"></i>
+                    </a>
+                </div>
+            </div>
+
+            <div class="border-t border-gray-100 pt-8 flex flex-col md:flex-row justify-between items-center text-[10px] md:text-xs text-gray-500 uppercase tracking-wider text-center md:text-left gap-4">
+                <p>&copy; 2024 Bar do Gege. Todos os direitos reservados.</p>
+                <div class="flex gap-4">
+                    <a href="#" class="hover:text-brand-red transition-colors">Política de Privacidade</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <a href="https://wa.me/5511941024387" target="_blank" class="whatsapp-float flex items-center justify-center w-14 h-14 md:w-16 md:h-16 bg-brand-red rounded-full text-white hover:bg-black hover:scale-110 shadow-lg group">
+        <i class="fab fa-whatsapp text-2xl md:text-3xl"></i>
+    </a>
+
+    <script>
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                navbar.classList.add('py-2', 'md:py-3', 'shadow-md');
+                navbar.classList.remove('py-3', 'md:py-4');
+            } else {
+                navbar.classList.remove('py-2', 'md:py-3', 'shadow-md');
+                navbar.classList.add('py-3', 'md:py-4');
+            }
+        });
+
+        const mobileBtn = document.getElementById('mobile-btn');
+        const closeMobile = document.getElementById('close-mobile');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const mobileLinks = document.querySelectorAll('.mobile-link');
+
+        function toggleMenu() {
+            mobileMenu.classList.toggle('translate-x-full');
+            document.body.classList.toggle('overflow-hidden');
+        }
+
+        mobileBtn.addEventListener('click', toggleMenu);
+        closeMobile.addEventListener('click', toggleMenu);
+        mobileLinks.forEach(link => link.addEventListener('click', toggleMenu));
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+    </script>
+</body>
+</html>
