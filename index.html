@@ -129,8 +129,9 @@
     </nav>
 
     <!-- Mobile Menu Overlay -->
-    <div id="mobile-menu" class="fixed inset-0 bg-white/98 z-[60] transform translate-x-full transition-transform duration-500 flex flex-col justify-center items-center gap-6 md:hidden overflow-y-auto">
-        <button id="close-mobile" class="absolute top-6 right-6 text-brand-red text-4xl p-2">&times;</button>
+    <!-- CORREÇÃO AQUI: bg-white (sólido) ao invés de bg-white/98 -->
+    <div id="mobile-menu" class="fixed inset-0 bg-white z-[60] transform translate-x-full transition-transform duration-500 flex flex-col justify-center items-center gap-6 md:hidden overflow-y-auto">
+        <button id="close-mobile" class="absolute top-6 right-6 text-brand-red text-4xl p-2 focus:outline-none">&times;</button>
         <a href="cardapio.pdf" target="_blank" class="mobile-link font-lavos text-3xl xs:text-4xl font-bold text-black hover:text-brand-red transition-colors">MENU</a>
         <a href="#eventos" class="mobile-link font-lavos text-3xl xs:text-4xl font-bold text-black hover:text-brand-red transition-colors">RESERVAS</a>
         <a href="#localizacao" class="mobile-link font-lavos text-3xl xs:text-4xl font-bold text-black hover:text-brand-red transition-colors">LOCAL</a>
