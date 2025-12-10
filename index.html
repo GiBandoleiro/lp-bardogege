@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="pt-br" class="scroll-smooth">
+<html lang="pt-br" class="scroll-smooth scroll-pt-24">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
@@ -14,7 +14,6 @@
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <!-- Fallback para Indie Flower e Inter -->
     <link href="https://fonts.googleapis.com/css2?family=Indie+Flower&family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
 
     <script>
@@ -23,23 +22,25 @@
                 extend: {
                     colors: {
                         brand: {
-                            white: '#ffffff',
-                            light: '#f8f9fa',
-                            gray: '#e9ecef',
-                            red: '#D90429', // Vermelho Intenso
-                            redHover: '#EF233C',
-                            terracotta: '#EBB092', // Terracota (Destaque)
+                            // CORES REVERTIDAS PARA O "CINZA AMARELADO" (GREIGE)
+                            beige: '#DCD9CD', // Tom Greige
+                            beigeDark: '#C5C2B6', // Variação mais escura do Greige
+                            khaki: '#DCD9CD', 
+                            red: '#D90429', 
+                            whatsapp: '#25D366',
+                            terracotta: '#EBB092', // Terracota original (Salmão/Pêssego)
                             terracottaDark: '#D49B7E',
                             dark: '#1a1a1a'
                         }
                     },
                     fontFamily: {
-                        lavos: ['"Lavos Handy"', '"Indie Flower"', 'cursive'],
+                        // Fonte mantida: Oferta do Dia
+                        lavos: ['"Oferta do Dia"', '"Indie Flower"', 'cursive'],
                         body: ['"Inter"', 'sans-serif'],
                     },
                     backgroundImage: {
-                        // Gradiente volta a terminar em branco para fusão suave
-                        'hero-gradient': 'linear-gradient(to bottom, rgba(255,255,255,0.2) 0%, rgba(255,255,255,0.8) 80%, rgba(255,255,255,1) 100%)',
+                        // Gradiente MAIS ESCURO (preto com opacidade crescente)
+                        'hero-gradient': 'linear-gradient(to bottom, rgba(0, 0, 0, 0.3) 0%, rgba(0, 0, 0, 0.6) 60%, rgba(0, 0, 0, 0.9) 100%)',
                     },
                     screens: {
                         'xs': '375px',
@@ -50,16 +51,15 @@
     </script>
 
     <style>
-        /* Configuração da Fonte Local Lavos Handy */
+        /* Configuração da Fonte Local */
         @font-face {
-            font-family: 'Lavos Handy';
-            src: url('lavos_handy.ttf') format('truetype'),
-                 url('lavos_handy.woff') format('woff');
+            font-family: 'Oferta do Dia';
+            src: url('Oferta-do-Dia.ttf') format('truetype');
             font-display: swap;
         }
 
         body {
-            background-color: #ffffff; /* Volta ao Branco */
+            background-color: #DCD9CD; /* Fundo Greige */
             color: #1a1a1a;
             font-family: 'Inter', sans-serif;
             overflow-x: hidden;
@@ -101,26 +101,37 @@
         .shadow-soft {
             box-shadow: 0 10px 40px -10px rgba(0,0,0,0.1);
         }
+
+        /* Carousel Styles */
+        .carousel-track {
+            display: flex;
+            transition: transform 0.5s ease-in-out;
+        }
+        .carousel-slide {
+            min-width: 100%;
+            height: 100%;
+        }
     </style>
 </head>
-<body class="selection:bg-brand-terracotta selection:text-white">
+<body class="selection:bg-brand-terracotta selection:text-brand-dark">
 
-    <!-- Navbar: Volta a ser branca para limpeza visual -->
-    <nav id="navbar" class="fixed w-full z-50 transition-all duration-300 py-3 md:py-4 px-4 lg:px-12 bg-white/95 backdrop-blur-md border-b border-gray-100 shadow-sm">
+    <!-- Navbar: Fundo Greige -->
+    <nav id="navbar" class="fixed w-full z-50 transition-all duration-300 py-3 md:py-4 px-4 lg:px-12 bg-brand-beige/95 backdrop-blur-md border-b border-brand-terracotta/20 shadow-sm">
         <div class="container mx-auto flex justify-between items-center">
             <!-- LOGO -->
             <a href="#" class="block h-12 md:h-16 lg:h-[92px] transition-transform hover:scale-105 shrink-0">
-                <img src="logo.png" alt="Bar do Gege Logo" class="h-full w-auto object-contain" onerror="this.onerror=null; this.src='https://placehold.co/200x92/FFFFFF/000000?text=Bar+do+Gege';">
+                <img src="logo.png" alt="Bar do Gege Logo" class="h-full w-auto object-contain" onerror="this.onerror=null; this.src='https://placehold.co/200x92/DCD9CD/000000?text=Bar+do+Gege';">
             </a>
 
             <!-- Menu Desktop -->
             <div class="hidden md:flex items-center gap-6 lg:gap-10">
-                <!-- Hover em Terracota -->
                 <a href="cardapio.pdf" target="_blank" class="font-lavos text-lg lg:text-xl font-bold text-black hover:text-brand-terracotta transition-colors tracking-wide">Menu</a>
+                <a href="#ambiente" class="font-lavos text-lg lg:text-xl font-bold text-black hover:text-brand-terracotta transition-colors tracking-wide">O Bar</a>
                 <a href="#eventos" class="font-lavos text-lg lg:text-xl font-bold text-black hover:text-brand-terracotta transition-colors tracking-wide">Reservas</a>
                 <a href="#localizacao" class="font-lavos text-lg lg:text-xl font-bold text-black hover:text-brand-terracotta transition-colors tracking-wide">Local</a>
-                <!-- Botão de destaque em Terracota -->
-                <a href="#visite" class="px-6 py-2 bg-brand-terracotta text-black font-lavos text-lg lg:text-xl font-bold tracking-wide hover:bg-black hover:text-white transition-all rounded-sm shadow-lg shadow-brand-terracotta/30 transform hover:-translate-y-0.5">
+                
+                <!-- Botão Visite -->
+                <a href="#visite" class="px-6 py-2 bg-brand-terracotta text-black font-lavos text-lg lg:text-xl font-bold tracking-wide hover:bg-black hover:text-brand-beige transition-all rounded-sm shadow-lg shadow-brand-terracotta/30 transform hover:-translate-y-0.5">
                     Visite-nos
                 </a>
             </div>
@@ -132,44 +143,51 @@
         </div>
     </nav>
 
-    <!-- Mobile Menu Overlay (Branco com texto Terracota/Preto) -->
-    <div id="mobile-menu" class="fixed inset-0 bg-white z-[60] transform translate-x-full transition-transform duration-500 flex flex-col justify-center items-center gap-6 md:hidden overflow-y-auto">
+    <!-- Mobile Menu Overlay -->
+    <div id="mobile-menu" class="fixed inset-0 bg-brand-beige z-[60] transform translate-x-full transition-transform duration-500 flex flex-col justify-center items-center gap-6 md:hidden overflow-y-auto">
         <button id="close-mobile" class="absolute top-6 right-6 text-brand-terracotta text-4xl p-2 focus:outline-none">&times;</button>
         <a href="cardapio.pdf" target="_blank" class="mobile-link font-lavos text-3xl xs:text-4xl font-bold text-black hover:text-brand-terracotta transition-colors">MENU</a>
+        <a href="#ambiente" class="mobile-link font-lavos text-3xl xs:text-4xl font-bold text-black hover:text-brand-terracotta transition-colors">O BAR</a>
         <a href="#eventos" class="mobile-link font-lavos text-3xl xs:text-4xl font-bold text-black hover:text-brand-terracotta transition-colors">RESERVAS</a>
         <a href="#localizacao" class="mobile-link font-lavos text-3xl xs:text-4xl font-bold text-black hover:text-brand-terracotta transition-colors">LOCAL</a>
         <a href="#visite" class="mobile-link font-lavos text-3xl xs:text-4xl font-bold text-brand-terracotta">VISITE</a>
     </div>
 
     <!-- Hero Section -->
-    <section class="relative min-h-[100svh] flex items-center justify-center overflow-hidden pt-20 pb-10">
+    <section class="relative min-h-[100svh] flex items-center justify-center overflow-hidden pt-32 pb-10 bg-brand-dark/10">
         <!-- Imagem de Fundo -->
         <div class="absolute inset-0 z-0">
             <div class="absolute inset-0 bg-hero-gradient z-10"></div>
-            <img src="banner.jpeg" class="w-full h-full object-cover object-center opacity-90" alt="Banner Bar do Gege" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1544025162-d76690b6d015?q=80&w=1920&auto=format&fit=crop';">
+            <!-- Imagem Responsiva: banner.webp para mobile, bannerdesktop.webp para desktop -->
+            <!-- Removida opacity-70 pois o gradiente escuro já fará o trabalho -->
+            <picture>
+                <source media="(min-width: 768px)" srcset="bannerdesktop.webp">
+                <img src="banner.webp" class="w-full h-full object-cover object-center" alt="Banner Bar do Gege" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1544025162-d76690b6d015?q=80&w=1920&auto=format&fit=crop';">
+            </picture>
         </div>
 
         <div class="container mx-auto px-4 md:px-6 relative z-20 text-center flex flex-col items-center justify-center h-full">
             <div class="mb-6 animate-[fadeInDown_1s_ease-out]">
-                <!-- Tag estilo 'sticker' com borda Terracota -->
-                <span class="px-4 py-1 md:px-6 md:py-2 border-2 border-brand-terracotta rounded-full text-brand-terracotta font-lavos text-lg md:text-2xl font-bold bg-white/90 backdrop-blur-sm shadow-sm">
+                <!-- Tag estilo 'sticker' (Agora com texto e borda brancos, sem fundo) -->
+                <span class="px-4 py-1 md:px-6 md:py-2 border-2 border-brand-beige rounded-full text-brand-beige font-lavos text-lg md:text-2xl font-bold shadow-sm">
                     São Paulo • Jardins
                 </span>
             </div>
             
-            <!-- Logo principal responsiva -->
-            <div class="w-full max-w-[280px] xs:max-w-[320px] md:max-w-xl lg:max-w-4xl mb-6 animate-[fadeInUp_1s_ease-out]">
-                <img src="bargg.png" alt="Bar do Gege" class="w-full h-auto drop-shadow-sm" onerror="this.onerror=null; this.src='https://placehold.co/600x200/transparent/000000?text=BAR+DO+GEGE';">
+            <!-- Logo principal (Com filtro para ficar branco) -->
+            <div class="w-full max-w-[240px] xs:max-w-[280px] md:max-w-lg lg:max-w-2xl mb-6 animate-[fadeInUp_1s_ease-out]">
+                <img src="bargg.png" alt="Bar do Gege" class="w-full h-auto drop-shadow-sm brightness-0 invert" onerror="this.onerror=null; this.src='https://placehold.co/600x200/transparent/FFFFFF?text=BAR+DO+GEGE';">
             </div>
             
-            <p class="text-gray-800 text-base md:text-xl max-w-xs md:max-w-2xl mx-auto mb-10 font-medium leading-relaxed animate-[fadeInUp_1.2s_ease-out]">
+            <!-- Texto principal (Agora branco) -->
+            <p class="text-brand-beige text-base md:text-xl max-w-xs md:max-w-2xl mx-auto mb-10 font-medium leading-relaxed animate-[fadeInUp_1.2s_ease-out] drop-shadow-sm">
                 Cerveja gelada, petiscos de verdade e aquele ambiente que você respeita. 
                 A tradição do melhor boteco de SP.
             </p>
             
             <div class="animate-[fadeInUp_1.4s_ease-out] w-full px-4">
-                <!-- Botão transparente com hover preto/terracota -->
-                <a href="#cardapio" class="group relative inline-flex items-center justify-center w-full md:w-auto px-8 py-3 md:px-10 md:py-4 overflow-hidden font-lavos text-xl md:text-2xl font-bold text-black transition-all duration-300 bg-transparent border-2 border-black hover:bg-black hover:text-white hover:border-black rounded-sm">
+                <!-- Botão (Agora branco com fundo transparente, e hover invertido) -->
+                <a href="#cardapio" class="group relative inline-flex items-center justify-center w-full md:w-auto px-8 py-3 md:px-10 md:py-4 overflow-hidden font-lavos text-xl md:text-2xl font-bold text-brand-beige transition-all duration-300 bg-transparent border-2 border-brand-beige hover:bg-brand-beige hover:text-brand-dark rounded-sm">
                     <span class="mr-2 tracking-wide">Explorar Menu</span>
                     <i class="fas fa-arrow-down transform group-hover:translate-y-1 transition-transform text-sm"></i>
                 </a>
@@ -177,8 +195,7 @@
         </div>
     </section>
 
-    <!-- 2. Seção Cardápio (Fundo Terracota para destaque) -->
-    <!-- Aqui usamos a cor para diferenciar esta seção das outras -->
+    <!-- 2. Seção Cardápio -->
     <section id="cardapio" class="py-16 md:py-24 bg-brand-terracotta">
         <div class="container mx-auto px-4 md:px-6">
             <div class="text-center mb-10 md:mb-16 reveal">
@@ -191,38 +208,37 @@
                 
                 <!-- Item 1 -->
                 <div class="md:col-span-2 md:row-span-2 relative group overflow-hidden rounded-xl reveal shadow-xl h-[350px] md:h-auto border-2 border-black/10">
-                    <img src="frutos.jpg" class="img-cover transition-transform duration-700 group-hover:scale-110" alt="Nossos Pratos" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1544025162-d76690b6d015?q=80&w=800&auto=format&fit=crop';">
+                    <img src="frutos.webp" class="img-cover transition-transform duration-700 group-hover:scale-110" alt="Nossos Pratos" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1544025162-d76690b6d015?q=80&w=800&auto=format&fit=crop';">
                     <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-90"></div>
                     <div class="absolute bottom-0 left-0 p-6 md:p-8">
-                        <!-- Título em Terracota claro para contraste com o fundo escuro da imagem -->
                         <h3 class="font-lavos text-3xl md:text-5xl mb-2 text-brand-terracotta font-bold">PRATOS</h3>
-                        <p class="text-gray-200 text-sm md:text-base max-w-sm font-medium">O melhor da gastronomia de boteco. Pratos fartos e sabor inigualável.</p>
+                        <p class="text-brand-beige text-sm md:text-base max-w-sm font-medium">O melhor da gastronomia de boteco. Pratos fartos e sabor inigualável.</p>
                     </div>
                 </div>
 
                 <!-- Item 2 -->
                 <div class="md:col-span-2 relative group overflow-hidden rounded-xl reveal delay-100 shadow-xl h-[200px] md:h-auto border-2 border-black/10">
-                    <img src="dividir.png" class="img-cover transition-transform duration-700 group-hover:scale-110" alt="Pratos Executivos" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1546069901-ba9599a7e63c?q=80&w=800&auto=format&fit=crop';">
+                    <img src="dividir.webp" class="img-cover transition-transform duration-700 group-hover:scale-110" alt="Pratos Executivos" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1546069901-ba9599a7e63c?q=80&w=800&auto=format&fit=crop';">
                     <div class="absolute inset-0 bg-black/20 group-hover:bg-transparent transition-colors"></div>
-                    <div class="absolute bottom-4 left-4 bg-white/95 backdrop-blur px-4 py-2 rounded-lg border-l-4 border-black">
+                    <div class="absolute bottom-4 left-4 bg-brand-beige/95 backdrop-blur px-4 py-2 rounded-lg border-l-4 border-black">
                         <h3 class="font-lavos text-xl md:text-3xl text-black font-bold">PARA DIVIDIR</h3>
                     </div>
                 </div>
 
                 <!-- Item 3 -->
                 <div class="relative group overflow-hidden rounded-xl reveal delay-200 shadow-xl h-[200px] md:h-auto border-2 border-black/10">
-                    <img src="porcao.png" class="img-cover transition-transform duration-700 group-hover:scale-110" alt="Porções" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1621852004158-b39765464355?q=80&w=800&auto=format&fit=crop';">
+                    <img src="porcao.webp" class="img-cover transition-transform duration-700 group-hover:scale-110" alt="Porções" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1621852004158-b39765464355?q=80&w=800&auto=format&fit=crop';">
                     <div class="absolute inset-0 bg-black/20 group-hover:bg-transparent transition-colors"></div>
-                    <div class="absolute bottom-4 left-4 bg-white/95 backdrop-blur px-4 py-2 rounded-lg border-l-4 border-black">
+                    <div class="absolute bottom-4 left-4 bg-brand-beige/95 backdrop-blur px-4 py-2 rounded-lg border-l-4 border-black">
                         <h3 class="font-lavos text-xl md:text-3xl text-black font-bold">PORÇÕES</h3>
                     </div>
                 </div>
 
                 <!-- Item 4 -->
                 <div class="relative group overflow-hidden rounded-xl reveal delay-300 shadow-xl h-[200px] md:h-auto border-2 border-black/10">
-                    <img src="bebidas.jpg" class="img-cover transition-transform duration-700 group-hover:scale-110" alt="Bebidas e Drinks" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?q=80&w=800&auto=format&fit=crop';">
+                    <img src="bebidas.webp" class="img-cover transition-transform duration-700 group-hover:scale-110" alt="Bebidas e Drinks" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?q=80&w=800&auto=format&fit=crop';">
                     <div class="absolute inset-0 bg-black/20 group-hover:bg-transparent transition-colors"></div>
-                    <div class="absolute bottom-4 left-4 bg-white/95 backdrop-blur px-4 py-2 rounded-lg border-l-4 border-black">
+                    <div class="absolute bottom-4 left-4 bg-brand-beige/95 backdrop-blur px-4 py-2 rounded-lg border-l-4 border-black">
                         <h3 class="font-lavos text-xl md:text-3xl text-black font-bold">BEBIDAS</h3>
                     </div>
                 </div>
@@ -230,7 +246,7 @@
             </div>
             
             <div class="text-center mt-12 md:mt-16 reveal w-full px-4">
-                <a href="cardapio.pdf" download target="_blank" class="inline-flex w-full md:w-auto justify-center items-center gap-3 bg-black text-white px-8 py-4 md:px-10 md:py-5 rounded-lg font-lavos text-xl md:text-3xl font-bold hover:bg-white hover:text-black transition-all transform hover:-translate-y-1 shadow-xl">
+                <a href="cardapio.pdf" download target="_blank" class="inline-flex w-full md:w-auto justify-center items-center gap-3 bg-black text-brand-beige px-8 py-4 md:px-10 md:py-5 rounded-lg font-lavos text-xl md:text-3xl font-bold hover:bg-brand-beige hover:text-black transition-all transform hover:-translate-y-1 shadow-xl">
                     <i class="fas fa-file-pdf"></i>
                     BAIXAR MENU
                 </a>
@@ -238,10 +254,68 @@
         </div>
     </section>
 
-    <!-- 3. Seção Eventos (Fundo Claro/Branco) -->
-    <section id="eventos" class="py-16 md:py-24 bg-brand-light relative overflow-hidden border-t border-gray-200">
-        <!-- Elemento decorativo em Terracota suave -->
-        <div class="absolute left-0 bottom-0 w-1/3 h-full bg-brand-terracotta/20 -skew-x-12 -translate-x-20 hidden lg:block opacity-50"></div>
+    <!-- 3. SEÇÃO AMBIENTE -->
+    <section id="ambiente" class="py-16 bg-brand-beige border-t border-brand-terracotta/20">
+        <div class="container mx-auto px-4 md:px-6">
+            <div class="flex flex-col md:flex-row justify-between items-end mb-8 gap-4">
+                <div>
+                    <span class="text-brand-terracotta font-lavos text-2xl font-bold">Nosso Espaço</span>
+                    <h2 class="font-lavos text-4xl md:text-6xl text-black font-bold mt-2">AMBIENTE</h2>
+                </div>
+                
+                <!-- Controles do Carrossel -->
+                <div class="flex gap-4">
+                    <button id="prevBtn" class="w-12 h-12 rounded-full border border-black flex items-center justify-center hover:bg-black hover:text-brand-beige transition-all">
+                        <i class="fas fa-chevron-left"></i>
+                    </button>
+                    <button id="nextBtn" class="w-12 h-12 rounded-full border border-black flex items-center justify-center hover:bg-black hover:text-brand-beige transition-all">
+                        <i class="fas fa-chevron-right"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Carrossel Wrapper -->
+            <div class="relative w-full aspect-[16/9] md:aspect-[21/9] overflow-hidden rounded-2xl shadow-xl bg-brand-beigeDark">
+                <div id="carouselTrack" class="carousel-track h-full">
+                    <!-- Slides (REDUZIDO PARA 5 IMAGENS) -->
+                    <div class="carousel-slide relative shrink-0">
+                        <img src="ambiente1.webp" class="w-full h-full object-cover" alt="Ambiente 1" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1514933651103-005eec06c04b?q=80&w=1200&auto=format&fit=crop';">
+                    </div>
+                    <div class="carousel-slide relative shrink-0">
+                        <img src="ambiente2.webp" class="w-full h-full object-cover" alt="Ambiente 2" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1559339352-11d035aa65de?q=80&w=1200&auto=format&fit=crop';">
+                    </div>
+                    <div class="carousel-slide relative shrink-0">
+                        <img src="ambiente3.webp" class="w-full h-full object-cover" alt="Ambiente 3" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1485686531765-ba63b07845a7?q=80&w=1200&auto=format&fit=crop';">
+                    </div>
+                     <div class="carousel-slide relative shrink-0">
+                        <img src="ambiente4.webp" class="w-full h-full object-cover" alt="Ambiente 4" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1575444758702-4a6b9222336e?q=80&w=1200&auto=format&fit=crop';">
+                    </div>
+                    <div class="carousel-slide relative shrink-0">
+                        <img src="ambiente5.webp" class="w-full h-full object-cover" alt="Ambiente 5" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1572116469696-31de0f17cc34?q=80&w=1200&auto=format&fit=crop';">
+                    </div>
+                </div>
+                
+                <!-- Overlay Gradiente -->
+                <div class="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent pointer-events-none"></div>
+                
+                <div class="absolute bottom-6 left-6 text-brand-beige pointer-events-none">
+                    <p class="font-lavos text-2xl">Experiência única nos Jardins</p>
+                </div>
+            </div>
+
+            <!-- Botão Veja Mais -->
+            <div class="text-center mt-8 reveal">
+                <a href="https://www.instagram.com/bar_dogege/" target="_blank" class="inline-flex items-center justify-center gap-3 px-8 py-3 border-2 border-black rounded-full font-lavos text-xl font-bold text-black hover:bg-black hover:text-brand-beige transition-all duration-300">
+                    <i class="fab fa-instagram"></i>
+                    Veja mais
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- 4. Seção Eventos -->
+    <section id="eventos" class="py-16 md:py-24 bg-brand-beige relative overflow-hidden border-t border-brand-terracotta/10">
+        <div class="absolute right-0 top-0 w-1/3 h-full bg-brand-terracotta/10 skew-x-12 translate-x-20 hidden lg:block"></div>
 
         <div class="container mx-auto px-4 md:px-6 relative z-10">
             <div class="flex flex-col lg:flex-row gap-10 md:gap-16 items-center">
@@ -249,39 +323,43 @@
                 <div class="lg:w-1/2 reveal text-center lg:text-left">
                     <span class="text-brand-terracotta font-lavos text-2xl md:text-3xl font-bold">Reservas & Private</span>
                     <h2 class="font-lavos text-5xl md:text-7xl mt-2 mb-6 text-black font-bold leading-tight">CELEBRE <br>COM A GENTE.</h2>
-                    <p class="text-gray-700 text-base md:text-lg leading-relaxed mb-8 font-light max-w-lg mx-auto lg:mx-0">
+                    <p class="text-gray-900 text-base md:text-lg leading-relaxed mb-8 font-light max-w-lg mx-auto lg:mx-0">
                         Realize seu evento corporativo ou celebração privada no Bar do Gege. 
                         Faça sua reserva antecipada e garanta a melhor mesa.
                     </p>
                 </div>
 
                 <div class="lg:w-1/2 w-full reveal delay-100">
-                    <div class="bg-white p-6 md:p-12 border border-gray-100 rounded-2xl shadow-soft">
+                    <div class="bg-brand-beigeDark p-6 md:p-12 border border-brand-terracotta/20 rounded-2xl shadow-soft">
                         <h3 class="font-lavos text-3xl md:text-4xl mb-6 md:mb-8 text-black font-bold text-center md:text-left">SOLICITAR RESERVA</h3>
                         
                         <form class="space-y-4 md:space-y-6">
                             <div class="group">
-                                <label class="block text-[10px] font-bold uppercase tracking-widest text-brand-terracotta mb-2">Nome Completo</label>
-                                <input type="text" class="w-full bg-gray-50 border-b-2 border-gray-200 p-3 text-black focus:outline-none focus:border-brand-terracotta transition-colors placeholder-gray-400 text-sm md:text-base" placeholder="Digite seu nome">
+                                <!-- LABEL COR PRETA -->
+                                <label class="block text-[10px] font-bold uppercase tracking-widest text-black mb-2">Nome Completo</label>
+                                <input type="text" class="w-full bg-brand-beige border-b-2 border-gray-400 p-3 text-black focus:outline-none focus:border-brand-terracotta transition-colors placeholder-gray-600 text-sm md:text-base" placeholder="Digite seu nome">
                             </div>
                             
                             <div class="grid grid-cols-2 gap-4 md:gap-6">
                                 <div class="group">
-                                    <label class="block text-[10px] font-bold uppercase tracking-widest text-brand-terracotta mb-2">Data</label>
-                                    <input type="text" class="w-full bg-gray-50 border-b-2 border-gray-200 p-3 text-black focus:outline-none focus:border-brand-terracotta transition-colors placeholder-gray-400 text-sm md:text-base" placeholder="DD/MM">
+                                    <!-- LABEL COR PRETA -->
+                                    <label class="block text-[10px] font-bold uppercase tracking-widest text-black mb-2">Data</label>
+                                    <input type="text" class="w-full bg-brand-beige border-b-2 border-gray-400 p-3 text-black focus:outline-none focus:border-brand-terracotta transition-colors placeholder-gray-600 text-sm md:text-base" placeholder="DD/MM">
                                 </div>
                                 <div class="group">
-                                    <label class="block text-[10px] font-bold uppercase tracking-widest text-brand-terracotta mb-2">Pessoas</label>
-                                    <input type="number" class="w-full bg-gray-50 border-b-2 border-gray-200 p-3 text-black focus:outline-none focus:border-brand-terracotta transition-colors placeholder-gray-400 text-sm md:text-base" placeholder="Qtd.">
+                                    <!-- LABEL COR PRETA -->
+                                    <label class="block text-[10px] font-bold uppercase tracking-widest text-black mb-2">Pessoas</label>
+                                    <input type="number" class="w-full bg-brand-beige border-b-2 border-gray-400 p-3 text-black focus:outline-none focus:border-brand-terracotta transition-colors placeholder-gray-600 text-sm md:text-base" placeholder="Qtd.">
                                 </div>
                             </div>
                             
                             <div class="group">
-                                <label class="block text-[10px] font-bold uppercase tracking-widest text-brand-terracotta mb-2">Telefone / WhatsApp</label>
-                                <input type="tel" class="w-full bg-gray-50 border-b-2 border-gray-200 p-3 text-black focus:outline-none focus:border-brand-terracotta transition-colors placeholder-gray-400 text-sm md:text-base" placeholder="(11) 99999-9999">
+                                <!-- LABEL COR PRETA -->
+                                <label class="block text-[10px] font-bold uppercase tracking-widest text-black mb-2">Telefone / WhatsApp</label>
+                                <input type="tel" class="w-full bg-brand-beige border-b-2 border-gray-400 p-3 text-black focus:outline-none focus:border-brand-terracotta transition-colors placeholder-gray-600 text-sm md:text-base" placeholder="(11) 99999-9999">
                             </div>
 
-                            <button class="w-full py-3 md:py-4 bg-black text-white font-bold uppercase tracking-widest hover:bg-brand-terracotta hover:text-black transition-all mt-4 rounded-sm shadow-lg font-lavos text-xl md:text-2xl">
+                            <button class="w-full py-3 md:py-4 bg-black text-brand-beige font-bold uppercase tracking-widest hover:bg-brand-terracotta hover:text-black transition-all mt-4 rounded-sm shadow-lg font-lavos text-xl md:text-2xl">
                                 Confirmar Interesse
                             </button>
                         </form>
@@ -294,7 +372,7 @@
     <!-- CONTAINER HÍBRIDO -->
     <section class="w-full grid grid-cols-1 lg:grid-cols-2">
 
-        <!-- 4. Lado Esquerdo: Localização -->
+        <!-- 5. Lado Esquerdo: Localização com Apps de Rota -->
         <div id="localizacao" class="w-full h-[400px] lg:h-auto lg:min-h-[600px] border-t-8 border-black lg:border-t-0 lg:border-r-8 relative group reveal">
             <iframe 
                 src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3657.19758702967!2d-46.66236622497676!3d-23.56134857880088!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x94ce59ceb1eb771f%3A0xe904f69692244238!2sJardins%2C%20S%C3%A3o%20Paulo%20-%20SP!5e0!3m2!1spt-BR!2sbr!4v1700000000000!5m2!1spt-BR!2sbr" 
@@ -302,17 +380,31 @@
                 allowfullscreen="" loading="lazy">
             </iframe>
             
-            <div class="absolute top-4 left-4 right-4 md:right-auto md:w-max bg-white/95 backdrop-blur px-6 py-4 rounded shadow-2xl pointer-events-none border-l-4 border-brand-terracotta z-10">
-                <p class="text-[10px] uppercase tracking-widest text-gray-500 mb-1">Como chegar</p>
+            <div class="absolute top-4 left-4 right-4 md:right-auto md:w-max bg-brand-beige/95 backdrop-blur px-6 py-4 rounded shadow-2xl pointer-events-none border-l-4 border-brand-terracotta z-10">
+                <p class="text-[10px] uppercase tracking-widest text-gray-700 mb-1">Como chegar</p>
                 <span class="text-black font-lavos text-xl font-bold leading-none">Rua Prof. Lourival Gomes</span>
+            </div>
+
+            <!-- Botões de Rota -->
+            <div class="absolute bottom-6 left-1/2 transform -translate-x-1/2 w-[90%] md:w-auto flex flex-col md:flex-row gap-3 z-20">
+                <a href="https://www.google.com/maps/dir/?api=1&destination=Rua+Professor+Lourival+Gomes+Machado,+260,+Sao+Paulo" target="_blank" 
+                   class="flex-1 md:flex-none flex items-center justify-center gap-2 bg-brand-beige text-black px-6 py-3 rounded-lg shadow-lg font-bold hover:bg-black hover:text-brand-beige transition-colors">
+                    <i class="fab fa-google"></i>
+                    Maps
+                </a>
+                <a href="https://waze.com/ul?q=Rua%20Professor%20Lourival%20Gomes%20Machado,%20260,%20Sao%20Paulo" target="_blank" 
+                   class="flex-1 md:flex-none flex items-center justify-center gap-2 bg-brand-beige text-black px-6 py-3 rounded-lg shadow-lg font-bold hover:bg-black hover:text-brand-beige transition-colors">
+                    <i class="fab fa-waze"></i>
+                    Waze
+                </a>
             </div>
         </div>
 
-        <!-- 5. Lado Direito: Visite-nos -->
-        <div id="visite" class="bg-brand-dark text-white py-16 px-6 md:px-12 lg:px-16 flex flex-col justify-center reveal delay-100">
+        <!-- 6. Lado Direito: Visite-nos -->
+        <div id="visite" class="bg-brand-dark text-brand-beige py-16 px-6 md:px-12 lg:px-16 flex flex-col justify-center reveal delay-100">
             <div class="max-w-xl mx-auto lg:mx-0 w-full">
                 <div class="mb-10 lg:mb-12">
-                    <h2 class="font-lavos text-5xl md:text-7xl lg:text-8xl text-brand-terracotta font-bold leading-none">VISITE<br><span class="text-white">NOS</span></h2>
+                    <h2 class="font-lavos text-5xl md:text-7xl lg:text-8xl text-brand-terracotta font-bold leading-none">VISITE<br><span class="text-brand-beige">NOS</span></h2>
                 </div>
 
                 <div class="grid gap-10">
@@ -321,7 +413,7 @@
                             <i class="fas fa-map-marker-alt text-brand-terracotta text-xl"></i>
                             <h4 class="font-bold uppercase tracking-widest text-sm text-gray-400">Endereço</h4>
                         </div>
-                        <p class="text-lg md:text-xl font-medium leading-relaxed text-gray-200">
+                        <p class="text-lg md:text-xl font-medium leading-relaxed text-brand-beige">
                             Rua Professor Lourival Gomes Machado, 260<br>
                             Jardins • São Paulo - SP
                         </p>
@@ -332,17 +424,17 @@
                             <i class="fas fa-clock text-brand-terracotta text-xl"></i>
                             <h4 class="font-bold uppercase tracking-widest text-sm text-gray-400">Horários de Funcionamento</h4>
                         </div>
-                        <ul class="space-y-2 text-gray-300 text-lg">
-                            <li class="flex justify-between w-full max-w-xs border-b border-gray-700 pb-1">
-                                <span class="text-white font-bold">Ter - Qui:</span> 
+                        <ul class="space-y-3 text-brand-beige text-lg w-full">
+                            <li class="flex justify-between items-center w-full max-w-md border-b border-brand-beige/20 pb-2 gap-8">
+                                <span class="font-bold whitespace-nowrap">Ter - Qui:</span> 
                                 <span>18h às 23h</span>
                             </li>
-                            <li class="flex justify-between w-full max-w-xs border-b border-gray-700 pb-1">
-                                <span class="text-white font-bold">Sex - Sáb:</span> 
+                            <li class="flex justify-between items-center w-full max-w-md border-b border-brand-beige/20 pb-2 gap-8">
+                                <span class="font-bold whitespace-nowrap">Sex - Sáb:</span> 
                                 <span>12h às 00h</span>
                             </li>
-                            <li class="flex justify-between w-full max-w-xs">
-                                <span class="text-white font-bold">Domingo:</span> 
+                            <li class="flex justify-between items-center w-full max-w-md gap-8">
+                                <span class="font-bold whitespace-nowrap">Domingo:</span> 
                                 <span>12h às 17h</span>
                             </li>
                         </ul>
@@ -353,24 +445,26 @@
 
     </section>
 
-    <!-- Footer (TERRACOTA com ajustes de texto) -->
+    <!-- Footer -->
     <footer class="bg-brand-terracotta py-12 border-t border-black/5">
         <div class="container mx-auto px-6">
             <div class="flex flex-col md:flex-row justify-between items-center gap-8 mb-8">
                 <div class="w-24 md:w-32 hover:opacity-80 transition-opacity">
-                     <img src="logo.png" alt="Bar do Gege" class="filter invert-0" onerror="this.onerror=null; this.src='https://placehold.co/200x80/FFFFFF/000000?text=Bar+do+Gege';">
+                     <img src="logo.png" alt="Bar do Gege" class="filter invert-0" onerror="this.onerror=null; this.src='https://placehold.co/200x80/EBB092/000000?text=Bar+do+Gege';">
                 </div>
 
                 <div class="flex gap-4 md:gap-6">
-                    <!-- Ícones com borda sutil escura e hover preto -->
-                    <a href="https://www.instagram.com/bar_dogege/" target="_blank" class="w-10 h-10 md:w-12 md:h-12 rounded-full border border-black/10 flex items-center justify-center text-black/70 hover:text-white hover:bg-black hover:border-black transition-all">
+                    <!-- Instagram -->
+                    <a href="https://www.instagram.com/bar_dogege/" target="_blank" class="w-10 h-10 md:w-12 md:h-12 rounded-full border border-black/10 flex items-center justify-center text-black/70 hover:text-brand-beige hover:bg-black hover:border-black transition-all">
                         <i class="fab fa-instagram text-lg md:text-xl"></i>
                     </a>
-                    <a href="https://www.facebook.com/profile.php?id=61584456411564#" target="_blank" class="w-10 h-10 md:w-12 md:h-12 rounded-full border border-black/10 flex items-center justify-center text-black/70 hover:text-white hover:bg-black hover:border-black transition-all">
+                    <!-- Facebook -->
+                    <a href="https://www.facebook.com/profile.php?id=61584456411564#" target="_blank" class="w-10 h-10 md:w-12 md:h-12 rounded-full border border-black/10 flex items-center justify-center text-black/70 hover:text-brand-beige hover:bg-black hover:border-black transition-all">
                         <i class="fab fa-facebook-f text-lg md:text-xl"></i>
                     </a>
-                    <a href="https://wa.me/5511941024387" target="_blank" class="w-10 h-10 md:w-12 md:h-12 rounded-full border border-black/10 flex items-center justify-center text-black/70 hover:text-white hover:bg-black hover:border-black transition-all">
-                        <i class="fab fa-whatsapp text-lg md:text-xl"></i>
+                    <!-- Waze -->
+                    <a href="https://waze.com/ul?q=Rua%20Professor%20Lourival%20Gomes%20Machado,%20260,%20Sao%20Paulo" target="_blank" title="Rota Waze" class="w-10 h-10 md:w-12 md:h-12 rounded-full border border-black/10 flex items-center justify-center text-black/70 hover:text-brand-beige hover:bg-blue-400 hover:border-blue-400 transition-all">
+                        <i class="fab fa-waze text-lg md:text-xl"></i>
                     </a>
                 </div>
             </div>
@@ -384,12 +478,13 @@
         </div>
     </footer>
 
-    <!-- Botão WhatsApp (Mantido em vermelho ou pode ser Terracota se preferir) -->
-    <a href="https://wa.me/5511941024387" target="_blank" class="whatsapp-float flex items-center justify-center w-14 h-14 md:w-16 md:h-16 bg-brand-red rounded-full text-white hover:bg-black hover:scale-110 shadow-lg group">
+    <!-- Botão WhatsApp -->
+    <a href="https://wa.me/5511941024387" target="_blank" class="whatsapp-float flex items-center justify-center w-14 h-14 md:w-16 md:h-16 bg-brand-whatsapp rounded-full text-brand-beige hover:bg-black hover:scale-110 shadow-lg group">
         <i class="fab fa-whatsapp text-2xl md:text-3xl"></i>
     </a>
 
     <script>
+        // Navbar Logic
         const navbar = document.getElementById('navbar');
         window.addEventListener('scroll', () => {
             if (window.scrollY > 50) {
@@ -401,6 +496,7 @@
             }
         });
 
+        // Mobile Menu Logic
         const mobileBtn = document.getElementById('mobile-btn');
         const closeMobile = document.getElementById('close-mobile');
         const mobileMenu = document.getElementById('mobile-menu');
@@ -415,6 +511,7 @@
         closeMobile.addEventListener('click', toggleMenu);
         mobileLinks.forEach(link => link.addEventListener('click', toggleMenu));
 
+        // Reveal Animation Logic
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
@@ -424,6 +521,46 @@
         }, { threshold: 0.1 });
 
         document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+        // Carousel Logic
+        const track = document.getElementById('carouselTrack');
+        const slides = Array.from(track.children);
+        const nextButton = document.getElementById('nextBtn');
+        const prevButton = document.getElementById('prevBtn');
+        let currentSlide = 0;
+
+        function updateCarousel() {
+            const amountToMove = -100 * currentSlide;
+            track.style.transform = `translateX(${amountToMove}%)`;
+        }
+
+        nextButton.addEventListener('click', () => {
+            if (currentSlide < slides.length - 1) {
+                currentSlide++;
+            } else {
+                currentSlide = 0; // Loop
+            }
+            updateCarousel();
+        });
+
+        prevButton.addEventListener('click', () => {
+            if (currentSlide > 0) {
+                currentSlide--;
+            } else {
+                currentSlide = slides.length - 1; // Loop
+            }
+            updateCarousel();
+        });
+
+        // Auto play carousel
+        setInterval(() => {
+            if (currentSlide < slides.length - 1) {
+                currentSlide++;
+            } else {
+                currentSlide = 0;
+            }
+            updateCarousel();
+        }, 5000); // 5 seconds
     </script>
 </body>
 </html>
