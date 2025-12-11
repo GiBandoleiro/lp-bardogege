@@ -5,6 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
     <title>Bar do Gege | O Melhor de SP</title>
     
+    <!-- Favicon atualizado para icone.png -->
+    <link rel="icon" href="icone.png" type="image/png">
+
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     
@@ -22,25 +25,22 @@
                 extend: {
                     colors: {
                         brand: {
-                            // CORES REVERTIDAS PARA O "CINZA AMARELADO" (GREIGE)
-                            beige: '#DCD9CD', // Tom Greige
-                            beigeDark: '#C5C2B6', // Variação mais escura do Greige
+                            beige: '#DCD9CD',
+                            beigeDark: '#C5C2B6',
                             khaki: '#DCD9CD', 
                             red: '#D90429', 
                             whatsapp: '#25D366',
-                            terracotta: '#EBB092', // Terracota original (Salmão/Pêssego)
+                            terracotta: '#EBB092',
                             terracottaDark: '#D49B7E',
                             dark: '#1a1a1a'
                         }
                     },
                     fontFamily: {
-                        // Fonte mantida: Oferta do Dia
                         lavos: ['"Oferta do Dia"', '"Indie Flower"', 'cursive'],
                         body: ['"Inter"', 'sans-serif'],
                     },
                     backgroundImage: {
-                        // Gradiente MAIS ESCURO (preto com opacidade crescente)
-                        'hero-gradient': 'linear-gradient(to bottom, rgba(0, 0, 0, 0.3) 0%, rgba(0, 0, 0, 0.6) 60%, rgba(0, 0, 0, 0.9) 100%)',
+                        'hero-gradient': 'linear-gradient(to bottom, rgba(0, 0, 0, 0.3) 0%, rgba(0, 0, 0, 0.5) 60%, rgba(0, 0, 0, 0.8) 100%)',
                     },
                     screens: {
                         'xs': '375px',
@@ -51,7 +51,6 @@
     </script>
 
     <style>
-        /* Configuração da Fonte Local */
         @font-face {
             font-family: 'Oferta do Dia';
             src: url('Oferta-do-Dia.ttf') format('truetype');
@@ -59,14 +58,13 @@
         }
 
         body {
-            background-color: #DCD9CD; /* Fundo Greige */
+            background-color: #DCD9CD;
             color: #1a1a1a;
             font-family: 'Inter', sans-serif;
             overflow-x: hidden;
             -webkit-font-smoothing: antialiased;
         }
 
-        /* Classes Utilitárias Customizadas */
         .reveal {
             opacity: 0;
             transform: translateY(30px);
@@ -77,7 +75,6 @@
             transform: translateY(0);
         }
 
-        /* Botão WhatsApp */
         .whatsapp-float {
             position: fixed;
             bottom: 20px;
@@ -90,60 +87,117 @@
             transform: scale(1.1);
         }
 
-        /* Ajuste para imagens */
         .img-cover {
             width: 100%;
             height: 100%;
             object-fit: cover;
         }
 
-        /* Sombra suave */
         .shadow-soft {
             box-shadow: 0 10px 40px -10px rgba(0,0,0,0.1);
         }
 
-        /* Carousel Styles */
+        /* Carousel Styles Genérico */
+        .carousel-container {
+            position: relative;
+            overflow: hidden;
+            border-radius: 1rem;
+        }
         .carousel-track {
             display: flex;
             transition: transform 0.5s ease-in-out;
+            height: 100%;
         }
         .carousel-slide {
             min-width: 100%;
             height: 100%;
+            position: relative;
         }
+        
+        .carousel-nav-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 40px;
+            height: 40px;
+            background: rgba(0,0,0,0.5);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            z-index: 10;
+            transition: background 0.3s;
+        }
+        .carousel-nav-btn:hover {
+            background: rgba(0,0,0,0.8);
+        }
+        .carousel-prev { left: 10px; }
+        .carousel-next { right: 10px; }
+
+        /* Estilos específicos para setas dos Cards Pequenos */
+        .card-nav-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 32px;
+            height: 32px;
+            background: rgba(0,0,0,0.6);
+            color: #DCD9CD;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            z-index: 30; /* Acima do overlay z-20 */
+            transition: all 0.2s;
+            border: none;
+            opacity: 0; /* Invisível por padrão */
+            pointer-events: none; /* Não clicável quando invisível */
+        }
+        /* Mostrar no hover do grupo */
+        .group:hover .card-nav-btn {
+            opacity: 1;
+            pointer-events: auto;
+        }
+        .card-nav-btn:hover {
+            background: #EBB092;
+            color: #000;
+            transform: translateY(-50%) scale(1.1);
+        }
+        .card-prev { left: 10px; }
+        .card-next { right: 10px; }
+
     </style>
 </head>
 <body class="selection:bg-brand-terracotta selection:text-brand-dark">
 
-    <!-- Navbar: Fundo Greige -->
+    <!-- Navbar -->
     <nav id="navbar" class="fixed w-full z-50 transition-all duration-300 py-3 md:py-4 px-4 lg:px-12 bg-brand-beige/95 backdrop-blur-md border-b border-brand-terracotta/20 shadow-sm">
         <div class="container mx-auto flex justify-between items-center">
-            <!-- LOGO -->
-            <a href="#" class="block h-12 md:h-16 lg:h-[92px] transition-transform hover:scale-105 shrink-0">
+            <a href="#" class="block h-12 md:h-16 lg:h-[92px] transition-transform hover:scale-105 shrink-0 flex items-center">
+                <!-- LOGO PNG com object-contain para não deformar -->
                 <img src="logo.png" alt="Bar do Gege Logo" class="h-full w-auto object-contain" onerror="this.onerror=null; this.src='https://placehold.co/200x92/DCD9CD/000000?text=Bar+do+Gege';">
             </a>
 
-            <!-- Menu Desktop -->
             <div class="hidden md:flex items-center gap-6 lg:gap-10">
-                <a href="cardapio.pdf" target="_blank" class="font-lavos text-lg lg:text-xl font-bold text-black hover:text-brand-terracotta transition-colors tracking-wide">Menu</a>
+                <!-- Link para o Drive (exemplo placeholder, substitua pelo link real) -->
+                <a href="https://docs.google.com/viewer?url=SEU_LINK_DO_DRIVE_AQUI/cardapio.pdf" target="_blank" class="font-lavos text-lg lg:text-xl font-bold text-black hover:text-brand-terracotta transition-colors tracking-wide">Menu</a>
                 <a href="#ambiente" class="font-lavos text-lg lg:text-xl font-bold text-black hover:text-brand-terracotta transition-colors tracking-wide">O Bar</a>
                 <a href="#eventos" class="font-lavos text-lg lg:text-xl font-bold text-black hover:text-brand-terracotta transition-colors tracking-wide">Reservas</a>
                 <a href="#localizacao" class="font-lavos text-lg lg:text-xl font-bold text-black hover:text-brand-terracotta transition-colors tracking-wide">Local</a>
-                
-                <!-- Botão Visite -->
                 <a href="#visite" class="px-6 py-2 bg-brand-terracotta text-black font-lavos text-lg lg:text-xl font-bold tracking-wide hover:bg-black hover:text-brand-beige transition-all rounded-sm shadow-lg shadow-brand-terracotta/30 transform hover:-translate-y-0.5">
                     Visite-nos
                 </a>
             </div>
 
-            <!-- Menu Mobile Button -->
             <button id="mobile-btn" class="md:hidden text-2xl text-black p-2 focus:outline-none">
                 <i class="fas fa-bars"></i>
             </button>
         </div>
     </nav>
 
-    <!-- Mobile Menu Overlay -->
     <div id="mobile-menu" class="fixed inset-0 bg-brand-beige z-[60] transform translate-x-full transition-transform duration-500 flex flex-col justify-center items-center gap-6 md:hidden overflow-y-auto">
         <button id="close-mobile" class="absolute top-6 right-6 text-brand-terracotta text-4xl p-2 focus:outline-none">&times;</button>
         <a href="cardapio.pdf" target="_blank" class="mobile-link font-lavos text-3xl xs:text-4xl font-bold text-black hover:text-brand-terracotta transition-colors">MENU</a>
@@ -155,37 +209,40 @@
 
     <!-- Hero Section -->
     <section class="relative min-h-[100svh] flex items-center justify-center overflow-hidden pt-32 pb-10 bg-brand-dark/10">
-        <!-- Imagem de Fundo -->
         <div class="absolute inset-0 z-0">
             <div class="absolute inset-0 bg-hero-gradient z-10"></div>
-            <!-- Imagem Responsiva: banner.webp para mobile, bannerdesktop.webp para desktop -->
             <picture>
-                <source media="(min-width: 768px)" srcset="bannerdesktop.webp">
-                <img src="banner.webp" class="w-full h-full object-cover object-center" alt="Banner Bar do Gege" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1544025162-d76690b6d015?q=80&w=1920&auto=format&fit=crop';">
+                <source media="(min-width: 768px)" srcset="banner.webp">
+                <img src="banner.webp" class="w-full h-full object-cover object-center" alt="Bar do Gege Fachada com Pessoas">
             </picture>
         </div>
 
         <div class="container mx-auto px-4 md:px-6 relative z-20 text-center flex flex-col items-center justify-center h-full">
             <div class="mb-6 animate-[fadeInDown_1s_ease-out]">
-                <!-- Tag estilo 'sticker' -->
                 <span class="px-4 py-1 md:px-6 md:py-2 border-2 border-brand-beige rounded-full text-brand-beige font-lavos text-lg md:text-2xl font-bold shadow-sm">
-                    São Paulo • Jardins
+                    São Paulo • Santana
                 </span>
             </div>
             
-            <!-- Logo principal -->
             <div class="w-full max-w-[240px] xs:max-w-[280px] md:max-w-lg lg:max-w-2xl mb-6 animate-[fadeInUp_1s_ease-out]">
+                <!-- IMAGEM HERO BARDOGG -->
                 <img src="bargg.png" alt="Bar do Gege" class="w-full h-auto drop-shadow-sm" onerror="this.onerror=null; this.src='https://placehold.co/600x200/transparent/FFFFFF?text=BAR+DO+GEGE';">
             </div>
             
-            <!-- Texto principal -->
-            <p class="text-brand-beige text-base md:text-xl max-w-xs md:max-w-2xl mx-auto mb-10 font-medium leading-relaxed animate-[fadeInUp_1.2s_ease-out] drop-shadow-sm">
-                Cerveja gelada, petiscos de verdade e aquele ambiente que você respeita. 
-                A tradição do melhor boteco de SP.
-            </p>
+            <!-- Texto atualizado e formatado com a cor bege (brand-beige) -->
+            <div class="max-w-3xl mx-auto mb-10 text-brand-beige drop-shadow-sm px-4 animate-[fadeInUp_1.2s_ease-out]">
+                <h3 class="font-lavos text-2xl md:text-4xl font-bold mb-4 leading-tight text-brand-terracotta">
+                    Um tributo à família, aos amigos e à boa mesa
+                </h3>
+                <p class="text-base md:text-xl font-light leading-relaxed mb-6 font-body text-[#DCD9CD]">
+                    Boteco democrático, acolhedor e afetivo. Um espaço que celebra a boa comida, a música e as histórias que unem gerações.
+                </p>
+                <p class="font-lavos text-xl md:text-3xl font-bold italic text-[#DCD9CD]">
+                    “Feito com amor, servido com história.”
+                </p>
+            </div>
             
             <div class="animate-[fadeInUp_1.4s_ease-out] w-full px-4">
-                <!-- Botão -->
                 <a href="#cardapio" class="group relative inline-flex items-center justify-center w-full md:w-auto px-8 py-3 md:px-10 md:py-4 overflow-hidden font-lavos text-xl md:text-2xl font-bold text-brand-beige transition-all duration-300 bg-transparent border-2 border-brand-beige hover:bg-brand-beige hover:text-brand-dark rounded-sm">
                     <span class="mr-2 tracking-wide">Explorar Menu</span>
                     <i class="fas fa-arrow-down transform group-hover:translate-y-1 transition-transform text-sm"></i>
@@ -202,11 +259,11 @@
                 <h2 class="font-lavos text-5xl md:text-7xl text-black font-bold">CARDÁPIO</h2>
             </div>
 
-            <!-- Grid Responsivo -->
-            <div class="grid grid-cols-1 md:grid-cols-4 md:grid-rows-2 gap-4 md:gap-6 h-auto md:h-[800px]">
+            <!-- Grid Responsivo (Mosaico) -->
+            <div class="grid grid-cols-1 md:grid-cols-4 md:grid-rows-2 gap-4 md:gap-6 h-auto md:h-[900px]">
                 
-                <!-- Item 1 -->
-                <div class="md:col-span-2 md:row-span-2 relative group overflow-hidden rounded-xl reveal shadow-xl h-[350px] md:h-auto border-2 border-black/10">
+                <!-- Item 1: Destaque (AUMENTADO para acompanhar altura) -->
+                <div class="md:col-span-2 md:row-span-2 relative group overflow-hidden rounded-xl reveal shadow-xl h-[350px] md:h-full border-2 border-black/10">
                     <img src="prato.webp" class="img-cover transition-transform duration-700 group-hover:scale-110" alt="Nossos Pratos" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1544025162-d76690b6d015?q=80&w=800&auto=format&fit=crop';">
                     <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-90"></div>
                     <div class="absolute bottom-0 left-0 p-6 md:p-8">
@@ -214,29 +271,54 @@
                     </div>
                 </div>
 
-                <!-- Item 2 -->
-                <div class="md:col-span-2 relative group overflow-hidden rounded-xl reveal delay-100 shadow-xl h-[200px] md:h-auto border-2 border-black/10">
-                    <img src="frutos.webp" class="img-cover transition-transform duration-700 group-hover:scale-110" alt="Pratos Executivos" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1546069901-ba9599a7e63c?q=80&w=800&auto=format&fit=crop';">
-                    <div class="absolute inset-0 bg-black/20 group-hover:bg-transparent transition-colors"></div>
-                    <div class="absolute bottom-4 left-4 bg-brand-beige/95 backdrop-blur px-4 py-2 rounded-lg border-l-4 border-black">
+                <!-- Item 2: PRATOS (Slideshow + Setas) (AUMENTADO ALTURA) -->
+                <div class="card-slideshow md:col-span-2 relative group overflow-hidden rounded-xl reveal delay-100 shadow-xl h-[300px] md:h-auto border-2 border-black/10" data-base="pratos" data-count="6">
+                    <!-- Setas de Navegação -->
+                    <button class="card-nav-btn card-prev"><i class="fas fa-chevron-left"></i></button>
+                    <button class="card-nav-btn card-next"><i class="fas fa-chevron-right"></i></button>
+
+                    <!-- Images Container -->
+                    <div class="absolute inset-0 z-0">
+                         <img src="pratos1.webp" class="slide-back absolute inset-0 w-full h-full object-cover" alt="Pratos" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1546069901-ba9599a7e63c?q=80&w=800&auto=format&fit=crop';">
+                         <img src="pratos2.webp" class="slide-front absolute inset-0 w-full h-full object-cover opacity-0 transition-opacity duration-1000" alt="Pratos" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1546069901-ba9599a7e63c?q=80&w=800&auto=format&fit=crop';">
+                    </div>
+
+                    <div class="absolute inset-0 bg-black/20 group-hover:bg-transparent transition-colors z-10 pointer-events-none"></div>
+                    <div class="absolute bottom-4 left-4 bg-brand-beige/95 backdrop-blur px-4 py-2 rounded-lg border-l-4 border-black z-20">
                         <h3 class="font-lavos text-xl md:text-3xl text-black font-bold">PRATOS</h3>
                     </div>
                 </div>
 
-                <!-- Item 3 -->
-                <div class="relative group overflow-hidden rounded-xl reveal delay-200 shadow-xl h-[200px] md:h-auto border-2 border-black/10">
-                    <img src="dividir.webp" class="img-cover transition-transform duration-700 group-hover:scale-110" alt="Porções" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1621852004158-b39765464355?q=80&w=800&auto=format&fit=crop';">
-                    <div class="absolute inset-0 bg-black/20 group-hover:bg-transparent transition-colors"></div>
-                    <div class="absolute bottom-4 left-4 bg-brand-beige/95 backdrop-blur px-4 py-2 rounded-lg border-l-4 border-black">
+                <!-- Item 3: PORÇÕES (Slideshow + Setas) (AUMENTADO ALTURA) -->
+                <div class="card-slideshow relative group overflow-hidden rounded-xl reveal delay-200 shadow-xl h-[300px] md:h-auto border-2 border-black/10" data-base="porcao" data-count="6">
+                    <!-- Setas de Navegação -->
+                    <button class="card-nav-btn card-prev"><i class="fas fa-chevron-left"></i></button>
+                    <button class="card-nav-btn card-next"><i class="fas fa-chevron-right"></i></button>
+
+                    <div class="absolute inset-0 z-0">
+                         <img src="porcao1.webp" class="slide-back absolute inset-0 w-full h-full object-cover" alt="Porções" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1621852004158-b39765464355?q=80&w=800&auto=format&fit=crop';">
+                         <img src="porcao2.webp" class="slide-front absolute inset-0 w-full h-full object-cover opacity-0 transition-opacity duration-1000" alt="Porções" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1621852004158-b39765464355?q=80&w=800&auto=format&fit=crop';">
+                    </div>
+
+                    <div class="absolute inset-0 bg-black/20 group-hover:bg-transparent transition-colors z-10 pointer-events-none"></div>
+                    <div class="absolute bottom-4 left-4 bg-brand-beige/95 backdrop-blur px-4 py-2 rounded-lg border-l-4 border-black z-20">
                         <h3 class="font-lavos text-xl md:text-3xl text-black font-bold">PORÇÕES</h3>
                     </div>
                 </div>
 
-                <!-- Item 4 -->
-                <div class="relative group overflow-hidden rounded-xl reveal delay-300 shadow-xl h-[200px] md:h-auto border-2 border-black/10">
-                    <img src="bebidas.webp" class="img-cover transition-transform duration-700 group-hover:scale-110" alt="Bebidas e Drinks" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?q=80&w=800&auto=format&fit=crop';">
-                    <div class="absolute inset-0 bg-black/20 group-hover:bg-transparent transition-colors"></div>
-                    <div class="absolute bottom-4 left-4 bg-brand-beige/95 backdrop-blur px-4 py-2 rounded-lg border-l-4 border-black">
+                <!-- Item 4: BEBIDAS (Slideshow + Setas) (AUMENTADO ALTURA) -->
+                <div class="card-slideshow relative group overflow-hidden rounded-xl reveal delay-300 shadow-xl h-[300px] md:h-auto border-2 border-black/10" data-base="bebida" data-count="6">
+                    <!-- Setas de Navegação -->
+                    <button class="card-nav-btn card-prev"><i class="fas fa-chevron-left"></i></button>
+                    <button class="card-nav-btn card-next"><i class="fas fa-chevron-right"></i></button>
+
+                    <div class="absolute inset-0 z-0">
+                         <img src="bebida1.webp" class="slide-back absolute inset-0 w-full h-full object-cover" alt="Bebidas" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?q=80&w=800&auto=format&fit=crop';">
+                         <img src="bebida2.webp" class="slide-front absolute inset-0 w-full h-full object-cover opacity-0 transition-opacity duration-1000" alt="Bebidas" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?q=80&w=800&auto=format&fit=crop';">
+                    </div>
+
+                    <div class="absolute inset-0 bg-black/20 group-hover:bg-transparent transition-colors z-10 pointer-events-none"></div>
+                    <div class="absolute bottom-4 left-4 bg-brand-beige/95 backdrop-blur px-4 py-2 rounded-lg border-l-4 border-black z-20">
                         <h3 class="font-lavos text-xl md:text-3xl text-black font-bold">BEBIDAS</h3>
                     </div>
                 </div>
@@ -244,6 +326,7 @@
             </div>
             
             <div class="text-center mt-12 md:mt-16 reveal w-full px-4">
+                <!-- LINK PARA DOWNLOAD/VISUALIZAÇÃO DO MENU -->
                 <a href="cardapio.pdf" download target="_blank" class="inline-flex w-full md:w-auto justify-center items-center gap-3 bg-black text-brand-beige px-8 py-4 md:px-10 md:py-5 rounded-lg font-lavos text-xl md:text-3xl font-bold hover:bg-brand-beige hover:text-black transition-all transform hover:-translate-y-1 shadow-xl">
                     <i class="fas fa-file-pdf"></i>
                     BAIXAR MENU
@@ -260,51 +343,33 @@
                     <span class="text-brand-terracotta font-lavos text-2xl font-bold">Nosso Espaço</span>
                     <h2 class="font-lavos text-4xl md:text-6xl text-black font-bold mt-2">AMBIENTE</h2>
                 </div>
-                
-                <!-- Controles do Carrossel -->
-                <div class="flex gap-4">
-                    <button id="prevBtn" class="w-12 h-12 rounded-full border border-black flex items-center justify-center hover:bg-black hover:text-brand-beige transition-all">
-                        <i class="fas fa-chevron-left"></i>
-                    </button>
-                    <button id="nextBtn" class="w-12 h-12 rounded-full border border-black flex items-center justify-center hover:bg-black hover:text-brand-beige transition-all">
-                        <i class="fas fa-chevron-right"></i>
-                    </button>
-                </div>
             </div>
 
-            <!-- Carrossel Wrapper -->
-            <!-- CORREÇÃO: Removido bg-black, mantido aspect-[4/3] para não ficar "espremido" e voltado para object-cover para não ter bordas -->
-            <div class="relative w-full aspect-[4/3] md:aspect-[21/9] overflow-hidden rounded-2xl shadow-xl bg-brand-beigeDark">
-                <div id="carouselTrack" class="carousel-track h-full">
-                    <!-- Slides (REDUZIDO PARA 5 IMAGENS) -->
-                    <!-- CORREÇÃO: object-cover em tudo para preencher sem bordas -->
-                    
+            <!-- Carrossel Ambiente -->
+            <div class="carousel-container relative w-full aspect-[4/3] md:aspect-[21/9] overflow-hidden rounded-2xl shadow-xl bg-brand-beigeDark group">
+                <button class="carousel-nav-btn carousel-prev" id="prevAmbiente"><i class="fas fa-chevron-left"></i></button>
+                <button class="carousel-nav-btn carousel-next" id="nextAmbiente"><i class="fas fa-chevron-right"></i></button>
+
+                <div id="trackAmbiente" class="carousel-track h-full">
                     <div class="carousel-slide relative shrink-0">
                         <img src="ambiente1.webp" class="w-full h-full object-cover" alt="Ambiente 1" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1514933651103-005eec06c04b?q=80&w=1200&auto=format&fit=crop';">
                     </div>
-                    
                     <div class="carousel-slide relative shrink-0">
                         <img src="ambiente2.webp" class="w-full h-full object-cover" alt="Ambiente 2" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1559339352-11d035aa65de?q=80&w=1200&auto=format&fit=crop';">
                     </div>
-                    
                     <div class="carousel-slide relative shrink-0">
                         <img src="ambiente3.webp" class="w-full h-full object-cover" alt="Ambiente 3" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1485686531765-ba63b07845a7?q=80&w=1200&auto=format&fit=crop';">
                     </div>
-                    
                      <div class="carousel-slide relative shrink-0">
                         <img src="ambiente4.webp" class="w-full h-full object-cover" alt="Ambiente 4" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1575444758702-4a6b9222336e?q=80&w=1200&auto=format&fit=crop';">
                     </div>
-                    
                     <div class="carousel-slide relative shrink-0">
                         <img src="ambiente5.webp" class="w-full h-full object-cover" alt="Ambiente 5" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1572116469696-31de0f17cc34?q=80&w=1200&auto=format&fit=crop';">
                     </div>
                 </div>
-                
-                <!-- Overlay Gradiente (Apenas decorativo, mantido suave) -->
                 <div class="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent pointer-events-none"></div>
             </div>
 
-            <!-- Botão Veja Mais -->
             <div class="text-center mt-8 reveal">
                 <a href="https://www.instagram.com/bar_dogege/" target="_blank" class="inline-flex items-center justify-center gap-3 px-8 py-3 border-2 border-black rounded-full font-lavos text-xl font-bold text-black hover:bg-black hover:text-brand-beige transition-all duration-300">
                     <i class="fab fa-instagram"></i>
@@ -334,33 +399,29 @@
                     <div class="bg-brand-beigeDark p-6 md:p-12 border border-brand-terracotta/20 rounded-2xl shadow-soft">
                         <h3 class="font-lavos text-3xl md:text-4xl mb-6 md:mb-8 text-black font-bold text-center md:text-left">SOLICITAR RESERVA</h3>
                         
-                        <form class="space-y-4 md:space-y-6">
+                        <form id="reservaForm" class="space-y-4 md:space-y-6">
                             <div class="group">
-                                <!-- LABEL COR PRETA -->
                                 <label class="block text-[10px] font-bold uppercase tracking-widest text-black mb-2">Nome Completo</label>
-                                <input type="text" class="w-full bg-brand-beige border-b-2 border-gray-400 p-3 text-black focus:outline-none focus:border-brand-terracotta transition-colors placeholder-gray-600 text-sm md:text-base" placeholder="Digite seu nome">
+                                <input type="text" id="formNome" class="w-full bg-brand-beige border-b-2 border-gray-400 p-3 text-black focus:outline-none focus:border-brand-terracotta transition-colors placeholder-gray-600 text-sm md:text-base" placeholder="Digite seu nome">
                             </div>
                             
                             <div class="grid grid-cols-2 gap-4 md:gap-6">
                                 <div class="group">
-                                    <!-- LABEL COR PRETA -->
                                     <label class="block text-[10px] font-bold uppercase tracking-widest text-black mb-2">Data</label>
-                                    <input type="text" class="w-full bg-brand-beige border-b-2 border-gray-400 p-3 text-black focus:outline-none focus:border-brand-terracotta transition-colors placeholder-gray-600 text-sm md:text-base" placeholder="DD/MM">
+                                    <input type="text" id="formData" class="w-full bg-brand-beige border-b-2 border-gray-400 p-3 text-black focus:outline-none focus:border-brand-terracotta transition-colors placeholder-gray-600 text-sm md:text-base" placeholder="DD/MM">
                                 </div>
                                 <div class="group">
-                                    <!-- LABEL COR PRETA -->
                                     <label class="block text-[10px] font-bold uppercase tracking-widest text-black mb-2">Pessoas</label>
-                                    <input type="number" class="w-full bg-brand-beige border-b-2 border-gray-400 p-3 text-black focus:outline-none focus:border-brand-terracotta transition-colors placeholder-gray-600 text-sm md:text-base" placeholder="Qtd.">
+                                    <input type="number" id="formPessoas" class="w-full bg-brand-beige border-b-2 border-gray-400 p-3 text-black focus:outline-none focus:border-brand-terracotta transition-colors placeholder-gray-600 text-sm md:text-base" placeholder="Qtd.">
                                 </div>
                             </div>
                             
                             <div class="group">
-                                <!-- LABEL COR PRETA -->
                                 <label class="block text-[10px] font-bold uppercase tracking-widest text-black mb-2">Telefone / WhatsApp</label>
-                                <input type="tel" class="w-full bg-brand-beige border-b-2 border-gray-400 p-3 text-black focus:outline-none focus:border-brand-terracotta transition-colors placeholder-gray-600 text-sm md:text-base" placeholder="(11) 99999-9999">
+                                <input type="tel" id="formTelefone" class="w-full bg-brand-beige border-b-2 border-gray-400 p-3 text-black focus:outline-none focus:border-brand-terracotta transition-colors placeholder-gray-600 text-sm md:text-base" placeholder="(11) 99999-9999">
                             </div>
 
-                            <button class="w-full py-3 md:py-4 bg-black text-brand-beige font-bold uppercase tracking-widest hover:bg-brand-terracotta hover:text-black transition-all mt-4 rounded-sm shadow-lg font-lavos text-xl md:text-2xl">
+                            <button type="submit" class="w-full py-3 md:py-4 bg-black text-brand-beige font-bold uppercase tracking-widest hover:bg-brand-terracotta hover:text-black transition-all mt-4 rounded-sm shadow-lg font-lavos text-xl md:text-2xl cursor-pointer">
                                 Confirmar Interesse
                             </button>
                         </form>
@@ -374,7 +435,6 @@
     <section class="w-full grid grid-cols-1 lg:grid-cols-2">
 
         <!-- 5. Lado Esquerdo: Localização com Apps de Rota -->
-        <!-- ALTERAÇÃO: Mudança para flex-col para botões ficarem abaixo -->
         <div id="localizacao" class="w-full flex flex-col border-t-8 border-black lg:border-t-0 lg:border-r-8 reveal">
             <!-- Wrapper do Mapa -->
             <div class="relative w-full h-[400px] lg:h-auto lg:flex-grow group">
@@ -383,22 +443,17 @@
                     class="absolute inset-0 w-full h-full grayscale group-hover:grayscale-0 transition-all duration-700 z-0" 
                     allowfullscreen="" loading="lazy">
                 </iframe>
-                
-                <div class="absolute top-4 left-4 right-4 md:right-auto md:w-max bg-brand-beige/95 backdrop-blur px-6 py-4 rounded shadow-2xl pointer-events-none border-l-4 border-brand-terracotta z-10">
-                    <p class="text-[10px] uppercase tracking-widest text-gray-700 mb-1">Como chegar</p>
-                    <span class="text-black font-lavos text-xl font-bold leading-none">Rua Prof. Lourival Gomes</span>
-                </div>
             </div>
 
-            <!-- Botões de Rota (Agora Abaixo) -->
+            <!-- Botões de Rota -->
             <div class="w-full bg-brand-beige p-6 flex flex-col md:flex-row gap-4 justify-center items-center border-t-4 border-black/10">
                 <a href="https://www.google.com/maps/dir/?api=1&destination=Rua+Professor+Lourival+Gomes+Machado,+260,+Sao+Paulo" target="_blank" 
-                   class="flex-1 w-full md:w-auto flex items-center justify-center gap-2 bg-white text-black px-6 py-3 rounded-lg shadow-lg font-bold hover:bg-black hover:text-brand-beige transition-colors border border-black/10">
+                   class="flex-1 w-full md:w-auto flex items-center justify-center gap-2 bg-brand-dark text-brand-beige px-6 py-3 rounded-lg shadow-lg font-bold hover:bg-white hover:text-black transition-colors border border-black/10">
                     <i class="fab fa-google"></i>
                     Maps
                 </a>
                 <a href="https://waze.com/ul?q=Rua%20Professor%20Lourival%20Gomes%20Machado,%20260,%20Sao%20Paulo" target="_blank" 
-                   class="flex-1 w-full md:w-auto flex items-center justify-center gap-2 bg-white text-black px-6 py-3 rounded-lg shadow-lg font-bold hover:bg-black hover:text-brand-beige transition-colors border border-black/10">
+                   class="flex-1 w-full md:w-auto flex items-center justify-center gap-2 bg-brand-dark text-brand-beige px-6 py-3 rounded-lg shadow-lg font-bold hover:bg-white hover:text-black transition-colors border border-black/10">
                     <i class="fab fa-waze"></i>
                     Waze
                 </a>
@@ -420,7 +475,7 @@
                         </div>
                         <p class="text-lg md:text-xl font-medium leading-relaxed text-brand-beige">
                             Rua Professor Lourival Gomes Machado, 260<br>
-                            Jardins • São Paulo - SP
+                            Santana • São Paulo - SP
                         </p>
                     </div>
 
@@ -455,19 +510,17 @@
         <div class="container mx-auto px-6">
             <div class="flex flex-col md:flex-row justify-between items-center gap-8 mb-8">
                 <div class="w-24 md:w-32 hover:opacity-80 transition-opacity">
-                     <img src="logo.png" alt="Bar do Gege" class="filter invert-0" onerror="this.onerror=null; this.src='https://placehold.co/200x80/EBB092/000000?text=Bar+do+Gege';">
+                     <!-- LOGO FOOTER PNG com object-contain -->
+                     <img src="logo.png" alt="Bar do Gege" class="w-full h-auto object-contain filter invert-0" onerror="this.onerror=null; this.src='https://placehold.co/200x80/EBB092/000000?text=Bar+do+Gege';">
                 </div>
 
                 <div class="flex gap-4 md:gap-6">
-                    <!-- Instagram -->
                     <a href="https://www.instagram.com/bar_dogege/" target="_blank" class="w-10 h-10 md:w-12 md:h-12 rounded-full border border-black/10 flex items-center justify-center text-black/70 hover:text-brand-beige hover:bg-black hover:border-black transition-all">
                         <i class="fab fa-instagram text-lg md:text-xl"></i>
                     </a>
-                    <!-- Facebook -->
                     <a href="https://www.facebook.com/profile.php?id=61584456411564#" target="_blank" class="w-10 h-10 md:w-12 md:h-12 rounded-full border border-black/10 flex items-center justify-center text-black/70 hover:text-brand-beige hover:bg-black hover:border-black transition-all">
                         <i class="fab fa-facebook-f text-lg md:text-xl"></i>
                     </a>
-                    <!-- Waze -->
                     <a href="https://waze.com/ul?q=Rua%20Professor%20Lourival%20Gomes%20Machado,%20260,%20Sao%20Paulo" target="_blank" title="Rota Waze" class="w-10 h-10 md:w-12 md:h-12 rounded-full border border-black/10 flex items-center justify-center text-black/70 hover:text-brand-beige hover:bg-blue-400 hover:border-blue-400 transition-all">
                         <i class="fab fa-waze text-lg md:text-xl"></i>
                     </a>
@@ -483,7 +536,7 @@
         </div>
     </footer>
 
-    <!-- Botão WhatsApp -->
+    <!-- Botão WhatsApp Flutuante -->
     <a href="https://wa.me/5511941024387" target="_blank" class="whatsapp-float flex items-center justify-center w-14 h-14 md:w-16 md:h-16 bg-brand-whatsapp rounded-full text-brand-beige hover:bg-black hover:scale-110 shadow-lg group">
         <i class="fab fa-whatsapp text-2xl md:text-3xl"></i>
     </a>
@@ -527,45 +580,173 @@
 
         document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 
-        // Carousel Logic
-        const track = document.getElementById('carouselTrack');
-        const slides = Array.from(track.children);
-        const nextButton = document.getElementById('nextBtn');
-        const prevButton = document.getElementById('prevBtn');
-        let currentSlide = 0;
+        // --- LÓGICA DE CARROSSEL AMBIENTE ---
+        function setupCarousel(trackId, prevBtnId, nextBtnId) {
+            const track = document.getElementById(trackId);
+            if (!track) return;
+            
+            const prevBtn = document.getElementById(prevBtnId);
+            const nextBtn = document.getElementById(nextBtnId);
+            
+            const slides = Array.from(track.children);
+            let currentSlide = 0;
 
-        function updateCarousel() {
-            const amountToMove = -100 * currentSlide;
-            track.style.transform = `translateX(${amountToMove}%)`;
+            function update() {
+                const amountToMove = -100 * currentSlide;
+                track.style.transform = `translateX(${amountToMove}%)`;
+            }
+
+            if (nextBtn) {
+                nextBtn.addEventListener('click', () => {
+                    if (currentSlide < slides.length - 1) {
+                        currentSlide++;
+                    } else {
+                        currentSlide = 0; // Loop
+                    }
+                    update();
+                });
+            }
+
+            if (prevBtn) {
+                prevBtn.addEventListener('click', () => {
+                    if (currentSlide > 0) {
+                        currentSlide--;
+                    } else {
+                        currentSlide = slides.length - 1; // Loop
+                    }
+                    update();
+                });
+            }
+
+            // Auto play simples
+            if (trackId === 'trackAmbiente') {
+                setInterval(() => {
+                    if (currentSlide < slides.length - 1) {
+                        currentSlide++;
+                    } else {
+                        currentSlide = 0;
+                    }
+                    update();
+                }, 5000);
+            }
         }
 
-        nextButton.addEventListener('click', () => {
-            if (currentSlide < slides.length - 1) {
-                currentSlide++;
-            } else {
-                currentSlide = 0; // Loop
-            }
-            updateCarousel();
+        setupCarousel('trackAmbiente', 'prevAmbiente', 'nextAmbiente');
+
+
+        // --- LÓGICA DE SLIDESHOW NOS CARDS (PRATOS, PORÇÕES, BEBIDAS) ---
+        // Rotação automática de imagens com fade + Controles Manuais
+        document.addEventListener('DOMContentLoaded', () => {
+            const cardSlideshows = document.querySelectorAll('.card-slideshow');
+            
+            cardSlideshows.forEach(card => {
+                const baseName = card.dataset.base; // ex: 'pratos'
+                const count = parseInt(card.dataset.count || 5); // ex: 5
+                
+                const backImg = card.querySelector('.slide-back');
+                const frontImg = card.querySelector('.slide-front');
+                const prevBtn = card.querySelector('.card-prev');
+                const nextBtn = card.querySelector('.card-next');
+                
+                let currentIndex = 1; // Começa na 1 (que já está no back)
+                let interval;
+                
+                // Função para mudar o slide
+                function changeSlide(targetIndex) {
+                    // Atualiza a imagem da frente (que está opacidade 0)
+                    frontImg.src = `${baseName}${targetIndex}.webp`;
+                    
+                    // Quando carregar, mostra
+                    frontImg.onload = () => {
+                        frontImg.style.opacity = '1';
+                        
+                        // Depois da transição (1s), atualiza a de trás e esconde a da frente
+                        setTimeout(() => {
+                            backImg.src = frontImg.src;
+                            frontImg.style.opacity = '0';
+                            currentIndex = targetIndex;
+                        }, 1000);
+                        
+                        frontImg.onload = null;
+                    };
+                    
+                    // Tratamento simples de erro: se imagem não existir, tenta a próxima
+                    frontImg.onerror = () => {
+                        let recoveryIndex = (targetIndex >= count) ? 1 : targetIndex + 1;
+                        // Evita loop infinito se nenhuma imagem funcionar
+                        if(recoveryIndex !== currentIndex) changeSlide(recoveryIndex);
+                    };
+                }
+
+                // Funções de navegação
+                function next() {
+                    let nextIndex = (currentIndex >= count) ? 1 : currentIndex + 1;
+                    changeSlide(nextIndex);
+                }
+
+                function prev() {
+                    let prevIndex = (currentIndex <= 1) ? count : currentIndex - 1;
+                    changeSlide(prevIndex);
+                }
+
+                // Auto Play
+                function startAutoPlay() {
+                    clearInterval(interval);
+                    interval = setInterval(next, 4000); // 4 segundos
+                }
+
+                // Event Listeners para os botões
+                if (nextBtn) {
+                    nextBtn.addEventListener('click', (e) => {
+                        e.stopPropagation(); // Evita borbulhar cliques
+                        next();
+                        startAutoPlay(); // Reinicia o timer ao interagir
+                    });
+                }
+
+                if (prevBtn) {
+                    prevBtn.addEventListener('click', (e) => {
+                        e.stopPropagation();
+                        prev();
+                        startAutoPlay();
+                    });
+                }
+
+                // Inicia o loop automático
+                startAutoPlay();
+            });
         });
 
-        prevButton.addEventListener('click', () => {
-            if (currentSlide > 0) {
-                currentSlide--;
-            } else {
-                currentSlide = slides.length - 1; // Loop
-            }
-            updateCarousel();
-        });
+        // -----------------------------------------------------------------
+        // LÓGICA DO FORMULÁRIO WHATSAPP
+        // -----------------------------------------------------------------
+        document.getElementById('reservaForm').addEventListener('submit', function(e) {
+            e.preventDefault(); 
 
-        // Auto play carousel
-        setInterval(() => {
-            if (currentSlide < slides.length - 1) {
-                currentSlide++;
-            } else {
-                currentSlide = 0;
+            const nome = document.getElementById('formNome').value;
+            const data = document.getElementById('formData').value;
+            const pessoas = document.getElementById('formPessoas').value;
+            const telefone = document.getElementById('formTelefone').value;
+
+            if(!nome || !data || !pessoas || !telefone) {
+                alert("Por favor, preencha todos os campos da reserva.");
+                return;
             }
-            updateCarousel();
-        }, 15000); // 15 seconds
+
+            const texto = `*Olá! Gostaria de fazer uma reserva no Bar do Gege.*\n\n` +
+                          `*Nome:* ${nome}\n` +
+                          `*Data:* ${data}\n` +
+                          `*Qtd. Pessoas:* ${pessoas}\n` +
+                          `*Contato:* ${telefone}\n\n` +
+                          `Aguardo confirmação!`;
+
+            const textoCodificado = encodeURIComponent(texto);
+            const numeroWhatsApp = "5511941024387";
+            
+            const url = `https://wa.me/${numeroWhatsApp}?text=${textoCodificado}`;
+
+            window.open(url, '_blank');
+        });
     </script>
 </body>
 </html>
